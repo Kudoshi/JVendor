@@ -1,0 +1,3 @@
+BF240;Battle Fury;25;resources/img/fish.png;MAIN;24.99
+HL002;Blade Fury;25;jyuumin.png;MAIN;24.0
+BF240;Gugu;24;stock.png;MAIN;24.45
