@@ -1,3 +1,4 @@
+import javax.xml.crypto.Data;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -13,16 +14,16 @@ public class Database {
     /** Creates a record with the following item details
      *  It checks for duplicated item code
      *
-     * @param item item object that contains all the details
+     * @param item Item object that contains the information of the item filled in
+     * @return boolean Returns true or false indicating the success of creating a new item in the database
      */
-    public static DbProcessStatus ItemCreate(Item item)
-    {
+    public static boolean ItemCreate(Item item){
         //Check for duplicated item
         Item existingItem = ItemGetByCode(item.getItemCode());
 
         if (existingItem != null)
         {
-            return DbProcessStatus.RaiseError("Item already exist");
+            return false;
         }
         //Append to file
         try
@@ -37,21 +38,21 @@ public class Database {
 
         } catch (IOException e) {
             e.printStackTrace();
-            return DbProcessStatus.RaiseError("Unable to create new item in database");
+            return false;
         }
-        return DbProcessStatus.RaiseSuccess("Item successfully created", item);
+        return true;
     }
 
     /**
      * Returns a list of items
-     * @return DbProcessStatus containing ArrayList<Item> data
+     * @return ArrayList<Item> list of items. Returns null if no item is found
      */
-    public static DbProcessStatus ItemGetAll()
-    {
+    public static ArrayList<Item> ItemGetAll(){
         ArrayList<Item> itemList = new ArrayList<Item>();
 
+        File file = new File("./src/main/resources/item.txt");
         try {
-            File file = new File("./src/main/resources/item.txt");
+
             Scanner scanner = new Scanner(file);
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
@@ -60,24 +61,36 @@ public class Database {
                         ItemCategory.valueOf(itemData[4]), Float.parseFloat(itemData[5]));
                 itemList.add(item);
             }
-
             scanner.close();
         } catch (FileNotFoundException e) {
-            return DbProcessStatus.RaiseError("Error retrieving item list");
+            e.printStackTrace();
         }
 
-        return DbProcessStatus.RaiseSuccess("Successfully returning all items", itemList);
+        if (itemList.size() == 0)
+        {
+            itemList = null;
+        }
+
+        return itemList;
     }
 
     /**
-     * Get an item by the coe
+     * Get an item by the code
      * @param itemCode Code of the item
      * @return Returns the Item found or null if no item is found
      */
-    public static DbProcessStatus ItemGetByCode(String itemCode)
-    {
-        ArrayList<Item> itemList = (ArrayList<Item>) ItemGetAll().getData();
+    public static Item ItemGetByCode(String itemCode){
+        ArrayList<Item> itemList = null;
+
+        itemList = ItemGetAll();
+
+        if (itemList == null)
+        {
+            return null;
+        }
+
         Item item = null;
+
         for (Item i : itemList)
         {
             if (i.getItemCode().equals(itemCode))
@@ -88,45 +101,78 @@ public class Database {
         }
         if (item == null)
         {
-            return DbProcessStatus.RaiseError("Item not found");
+            return null;
         }
 
-        return DbProcessStatus.RaiseSuccess("Item found", item);
+        return item;
     }
 
     /**
      * Updates the item details by overwriting the details in the database
-     * @param item The item with the new details along with the appropriate itemCode
-     * @return DbProcessStatus: Status only. No data
+     * @param updateItem The item with the new details along with the appropriate itemCode
+     * @return boolean Boolean indicating the success of updating the item with new data
      */
-    public static DbProcessStatus ItemUpdate(Item item)
+    public static boolean ItemUpdate(Item updateItem)
     {
-        String itemCode = item.getItemCode();
-
-        //Find if item is in database
-
-        DbProcessStatus returnStatus = ItemGetByCode(itemCode);
-
-        //If unable to find item
-        if (!returnStatus.isStatusSuccess())
+        //Check if in database
+        Item oriItem = ItemGetByCode(updateItem.getItemCode());
+        if (oriItem == null)
         {
-            return DbProcessStatus.RaiseError(returnStatus.getStatusMessage());
+            return false;
         }
 
-        //Get item list
-        DbProcessStatus getItemListStatus = ItemGetAll();
+        // Get item lsit
+        ArrayList<Item> itemList = ItemGetAll();
+        if (itemList == null)
+        {
+            return false;
+        }
 
-        if (!return )
-        ArrayList<Item> itemList = (ArrayList<Item>) ItemGetAll().getData();
-        if
+        //Update item list
+        boolean isUpdated = false;
+        for (int i = 0; i < itemList.size(); i++) {
+            if (itemList.get(i).getItemCode().equals(updateItem.getItemCode()))
+            {
+                itemList.set(i, updateItem);
+                isUpdated = true;
+                break;
+            }
+        }
 
+        if (isUpdated == false)
+        {
+            return false;
+        }
 
+        //Write to file
+        try
+        {
+            FileWriter writer = new FileWriter("./src/main/resources/item.txt");
+            BufferedWriter buffer = new BufferedWriter(writer);
+            for (Item i : itemList)
+            {
+                String textData = i.getItemCode()+";"+i.getItemName()+";"+i.getStock()+";"+i.getPictureName()+";"+
+                        i.getCategory()+";"+i.getPrice()+"\n";
+                buffer.write(textData);
+            }
+
+            buffer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+
+        return true;
     }
 
     public static void main(String[] args) {
-        Item item = new Item("BF240", "Gugu" , 24, "stock.png",
+        Item item = new Item("BF245", "Gugu420" , 420, "stock.png",
                 ItemCategory.MAIN, 24.45f);
-        ItemCreate(item);
+
+        boolean isUpdate = ItemUpdate(item);
+        System.out.println(isUpdate);
+//        ItemCreate(item);
+//        Item item = ItemGetByCode("BF240");
     }
 
 }
