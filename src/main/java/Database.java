@@ -1,8 +1,29 @@
-import javax.xml.crypto.Data;
 import java.io.*;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Scanner;
 public class Database {
+
+    /**
+     * An enum that stores the type of database file and the file location of the database
+     *
+     */
+    enum FileType
+    {
+        CART("Database/cart.txt"), ITEM("Database/item.txt"), ITEM_STATISTIC("Database/item_statistic.txt"),
+        TRANSACTION("Database/transaction.txt"), STATISTIC("Database/statistic.txt");
+        private String fileLocation;
+
+        FileType(String fileLocation) {
+            this.fileLocation = fileLocation;
+        }
+
+        public String getFileLocation()
+        {
+            return this.fileLocation;
+        }
+    }
 
     //Create
     //Get (read)
@@ -165,14 +186,37 @@ public class Database {
         return true;
     }
 
-    public static void main(String[] args) {
-        Item item = new Item("BF245", "Gugu420" , 420, "stock.png",
-                ItemCategory.MAIN, 24.45f);
 
-        boolean isUpdate = ItemUpdate(item);
-        System.out.println(isUpdate);
+    public static void main(String[] args) {
+//        System.out.println(FileCons.FOOD.getValue());
+
+        try(final InputStream stream = Database.class.getResourceAsStream("Database/item.txt")) {
+            if (stream != null) {
+                final String text = new String(stream.readAllBytes(), StandardCharsets.UTF_8);
+                System.out.println(text);
+            } else {
+                System.err.println("failed to read text");
+            }
+        }
+        catch (Exception e)
+        {
+            System.err.println(e.getMessage());
+        }
+
+        URL url = Database.class.getResource("Database/item.txt");
+        System.out.println("Value URL = " + url);
+
+
+
+//        Item item = new Item("BF245", "Gugu420" , 420, "stock.png",
+//                ItemCategory.MAIN, 24.45f);
+//
+//        boolean isUpdate = ItemUpdate(item);
+//        System.out.println(isUpdate);
 //        ItemCreate(item);
 //        Item item = ItemGetByCode("BF240");
+
+
     }
 
 }

@@ -1,0 +1,15 @@
+Transaction
+{
+	TransactionID,
+	TotalItem,
+	PaymentMethod,
+	DatePurchased,
+
+	TransactionRecord [
+		{ 
+			ItemCode, 
+			Quantity, 
+			TotalPrice 
+		} 
+	]
+}
