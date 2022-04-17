@@ -296,27 +296,7 @@ public class Database {
         int newID = lastID + 1;
         return String.format("%05d", newID);
     }
-
-    public static String CreateFile(String fileName) throws IOException {
-        try {
-            File file = new File(fileName);
-            if (file.createNewFile()) {
-                String message = "File successfully created" + file.getName();
-                return message;
-            }
-            else {
-                String message = "File name already exist.";
-                return message;
-            }
-
-        }
-        catch (IOException e) {
-            String message = "Error occured";
-            e.printStackTrace();
-            return message;
-        }
-    }
-
+    
     public static void main(String[] args) {
 //        String[] item = {"ULT002","DUBAI21","1","scuba.png","MAIN","22.45"};
 //        boolean createdData = TextFileCreate(FileType.ITEM);
