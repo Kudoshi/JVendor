@@ -20,6 +20,16 @@ public class Item {
         this.price = price;
     }
 
+    public Item(String itemName, int stock, String pictureName, ItemCategory category, float price) {
+        this.itemName = itemName;
+        this.stock = stock;
+        this.pictureName = pictureName;
+        this.category = category;
+        this.price = price;
+    }
+
+    // PrintAllData
+
 
     // Getter and Setter
 
