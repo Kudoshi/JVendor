@@ -1,7 +1,2 @@
-String;String;int;String;String;float
-00001;BattelFury;24322;stock.png;MAIN;24.45
-00002;Upperstacked;24322;stock.png;MAIN;24.45
-00003;Gugu420;420;stock.png;MAIN;24.45
-00004;SCUBAS;1;scuba.png;MAIN;22.45
-00005;SCUBAS;1;scuba.png;MAIN;22.45
-00006;DUBAI21;1;scuba.png;MAIN;22.45
+00001;DUsdsdsdsBAI21;69;scuba.png;BEVERAGE;22.45
+00002;DUBAI21;69;scuba.png;BEVERAGE;22.45

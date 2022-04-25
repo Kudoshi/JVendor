@@ -1,8 +1,12 @@
 import java.io.*;
+import java.lang.reflect.Array;
+import java.lang.reflect.Field;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 public class Database {
@@ -13,14 +17,19 @@ public class Database {
      */
     enum FileType
     {
-        CART("Database/cart.txt"), ITEM("Database/item.txt"), ITEM_STATISTIC("Database/item_statistic.txt"),
-        TRANSACTION("Database/transaction.txt"), STATISTIC("Database/statistic.txt");
+        CART("Database/cart.txt", Cart.class), ITEM("Database/item.txt", Item.class),
+        ITEM_STATISTIC("Database/item_statistic.txt", Item_Statistic.class),
+        TRANSACTION("Database/transaction.txt", Transaction.class),
+        STATISTIC("Database/statistic.txt", Statistic.class);
         private URL fileLocation;
+        private Class<?> classType;
 
-        FileType(String fileLocation) {
+        FileType(String fileLocation, Class<?> classType) {
             URL url = Database.class.getResource(fileLocation);
             this.fileLocation = url;
+            this.classType = classType;
         }
+
 
         public URI getFileLocationURI()
         {
@@ -32,14 +41,11 @@ public class Database {
             return null;
         }
 
+        public Class<?> getClassType() {
+            return classType;
+        }
     }
 
-    //Create
-    //Get (read)
-    //Update
-    //Delete
-
-//    public static void
 
     /** Creates a record with the following item details
      *  It checks for duplicated item code
@@ -48,9 +54,16 @@ public class Database {
      * @param createData Array of strings that contains the information of the data filled in
      * @return boolean Returns true or false indicating the success of creating a new data record in the database
      */
-    public static boolean TextFileCreate(FileType fileType, String[] createData){
+    public static <T> boolean TextFileCreate(FileType fileType, Object[] createData){
+        boolean validateIncomingData = ValidateIncomingData(FileType.ITEM, createData);
+
+        if (validateIncomingData == false)
+        {
+            return false;
+        }
+
         //Check for duplicated item
-        String[] searchData = TextFileGetByID(fileType, createData[0]);
+        String[] searchData = TextFileGetByID(fileType, (String) createData[0]);
 
         if (searchData != null)
         {
@@ -65,8 +78,10 @@ public class Database {
 
             FileWriter writer = new FileWriter(file, true);
             BufferedWriter buffer = new BufferedWriter(writer);
-
-            String textData = String.join(";",createData);
+            String textData = "";
+            for (Object i: createData) {
+                textData += String.valueOf(i) + ";";
+            }
             textData += "\n";
 
             buffer.write(textData);
@@ -110,7 +125,6 @@ public class Database {
         {
             return dataList;
         }
-
     }
     /**
      * Get a record of data from the text file that corresponds to the idCode (first index of the data record) given
@@ -146,7 +160,8 @@ public class Database {
 
         return dataFind;
     }
-//
+
+
     /**
      * Updates the information of the specified data record.
      * The data record's first index (id code) cannot be changed
@@ -155,10 +170,17 @@ public class Database {
      * @param updateData The record with the new details along with the appropriate id code (The first index)
      * @return boolean Indicating the success of updating the item with new data
      */
-    public static boolean TextFileUpdateData(FileType fileType, String[] updateData)
+    public static boolean TextFileUpdateData(FileType fileType, Object[] updateData)
     {
+        boolean validateIncomingData = ValidateIncomingData(FileType.ITEM, updateData);
+
+        if (validateIncomingData == false)
+        {
+            return false;
+        }
+
         //Check if in database
-        String[] oriData = TextFileGetByID(fileType, updateData[0]);
+        String[] oriData = TextFileGetByID(fileType, (String) updateData[0]);
         if (oriData == null)
         {
             return false;
@@ -181,7 +203,13 @@ public class Database {
                     isUpdated = false;
                     break;
                 }
-                dataList.set(i, updateData);
+                ArrayList<String> stringList = new ArrayList<String>();
+                for (int j = 0; j < updateData.length; j++)
+                {
+                    stringList.add(String.valueOf(updateData[j]));
+                }
+                String[] stringArray = stringList.toArray(new String[0]);
+                dataList.set(i, stringArray);
                 isUpdated = true;
                 break;
             }
@@ -283,26 +311,96 @@ public class Database {
 
     // Utility
 
-    public static String GenerateID(FileType fileType)
+    private static String GenerateID(FileType fileType)
     {
         ArrayList<String[]> dataList = TextFileGetAll(fileType);
 
         int lastID = 0;
-        for(String [] i: dataList)
+
+        if (dataList != null)
         {
-            lastID = Integer.parseInt(i[0]);
+            for(String [] i: dataList)
+            {
+                lastID = Integer.parseInt(i[0]);
+            }
         }
 
         int newID = lastID + 1;
         return String.format("%05d", newID);
     }
-    
+
+    /**
+     * Validates the incoming dataRecord data type with the file type class's variables data type
+     *
+     * @param fileType The file type of the data
+     * @param dataRecord An object array consisting of the data in its proper data type for the appropriate fileType
+     * @return The boolean on whether the incoming data is in its appropriate data type with the file type's class variables
+     */
+    private static boolean ValidateIncomingData(FileType fileType, Object[] dataRecord)
+    {
+        Field[] fields = fileType.getClassType().getDeclaredFields();
+
+        if (dataRecord.length != fields.length)
+        {
+            return false;
+        }
+
+        //Goes through each and every field in the file type class validating whether the incoming data record matches
+        for (int i = 0; i < fields.length; i++) {
+
+            // Check primitive type variable
+            if (fields[i].getType().isPrimitive())
+            {
+                //Try change the incoming data with the file type class' original variable data type
+                try {
+                    switch (fields[i].getType().toString()) {
+                        case "int":
+                            int checkInt = (int) dataRecord[i];
+                            break;
+                        case "float":
+                            float checkFloat = (float) dataRecord[i];
+
+                            break;
+                        case "boolean":
+                            boolean checkBoolean = (boolean) dataRecord[i];
+                            break;
+                        case "double":
+                            double checkDouble = (double) dataRecord[i];
+
+                            break;
+                        case "char":
+                            char checkChar = (char) dataRecord[i];
+                        default:
+                            throw new Exception("Non-supported primitive data types detected");
+                    }
+                } catch (Exception e){
+                    return false;
+                }
+            }
+            // Check object type variables
+            else {
+                if (fields[i].getType().isAssignableFrom(dataRecord[i].getClass()))
+                {
+                    continue;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
     public static void main(String[] args) {
-//        String[] item = {"ULT002","DUBAI21","1","scuba.png","MAIN","22.45"};
+        Object[] item = {"00001", "DUsdsdsdsBAI21",69,"scuba.png", ItemCategory.BEVERAGE, 22.45F};
+
+        System.out.println(TextFileUpdateData(FileType.ITEM, item));
+
 //        boolean createdData = TextFileCreate(FileType.ITEM);
 //
 //        System.out.println(createdData);
-
+//        System.out.println(FileType.ITEM.getFileLocationURvvI());
 
 
 
