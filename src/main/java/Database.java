@@ -1,13 +1,16 @@
+import javax.swing.*;
 import java.io.*;
-import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Database {
 
@@ -29,7 +32,6 @@ public class Database {
             this.fileLocation = url;
             this.classType = classType;
         }
-
 
         public URI getFileLocationURI()
         {
@@ -392,26 +394,70 @@ public class Database {
         return true;
     }
 
+    /**
+     * Retrieves URI path of the image icon.
+     * Image Icon has name that starts with ICON_
+     * @param iconName Name of the icon without ICON_
+     * @return URI path of the icon. Null if no uri/file is found
+     */
+    public static URI RetrieveIconPathURI(String iconName)
+    {
+        URI pathURI = null;
+        try {
+            System.out.println(iconName+".png");
+
+            pathURI = Database.class.getResource("Icon/"+ iconName+".png").toURI();
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+
+        if (pathURI != null)
+        {
+            return pathURI;
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+    /**
+     * Retrieves URI path of the image icon.
+     * Image Icon has name that starts with ICON_
+     * @param itemFilename Name of the icon without ICON_
+     * @return URI path of the icon. Null if no uri/file is found
+     */
+    public static URI RetrieveItemImgURI(String itemFilename)
+    {
+        //Item name are in the form of 00025_ItemName
+
+        String itemName = itemFilename.split("_")[1];
+
+        URI pathURI = null;
+        try {
+            System.out.println(itemName+".png");
+
+            pathURI = Database.class.getResource("Item/"+ itemName+".png").toURI();
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+
+        if (pathURI != null)
+        {
+            return pathURI;
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+
     public static void main(String[] args) {
-        Object[] item = {"00001", "DUsdsdsdsBAI21",69,"scuba.png", ItemCategory.BEVERAGE, 22.45F};
-
-        System.out.println(TextFileUpdateData(FileType.ITEM, item));
-
-//        boolean createdData = TextFileCreate(FileType.ITEM);
+//        Object[] item = {"00001", "DUsdsdsdsBAI21",69,"scuba.png", ItemCategory.BEVERAGE, 22.45F};
 //
-//        System.out.println(createdData);
-//        System.out.println(FileType.ITEM.getFileLocationURvvI());
+//        System.out.println(TextFileUpdateData(FileType.ITEM, item));
 
-
-
-
-//        Item item = new Item("BF245", "Gugu420" , 420, "stock.png",
-//                ItemCategory.MAIN, 24.45f);
-//
-//        boolean isUpdate = ItemUpdate(item);
-//        System.out.println(isUpdate);
-//        ItemCreate(item);
-//        Item item = ItemGetByCode("BF240");
 
 
     }

@@ -1,2 +1,3 @@
-00001;DUsdsdsdsBAI21;69;scuba.png;BEVERAGE;22.45
-00002;DUBAI21;69;scuba.png;BEVERAGE;22.45
+BF240;Gugu420;24;stock.png;MAIN;24.45
+HL002;Blade Fury;25;jyuumin.png;MAIN;24.0
+BF245;Gugu420;420;stock.png;MAIN;24.45
