@@ -404,8 +404,6 @@ public class Database {
     {
         URI pathURI = null;
         try {
-            System.out.println(iconName+".png");
-
             pathURI = Database.class.getResource("Icon/"+ iconName+".png").toURI();
         } catch (URISyntaxException e) {
             e.printStackTrace();
@@ -435,7 +433,6 @@ public class Database {
 
         URI pathURI = null;
         try {
-            System.out.println(itemName+".png");
 
             pathURI = Database.class.getResource("Item/"+ itemName+".png").toURI();
         } catch (URISyntaxException e) {

@@ -89,7 +89,7 @@ public class AdminPageView extends JPanel implements IGUIStyle {
             }
         });
 
-        CustomJLabel itemListingIcon = new CustomJLabel("ItemListing", new Dimension(75,75), ImageType.ITEM_IMAGE, true);
+        CustomJLabel itemListingIcon = new CustomJLabel("ItemListing", new Dimension(75,75), ImageType.ICON, true);
         itemListingIcon.setBounds(35,25,75,75);
 
         CustomJLabel itemListingTitle = new CustomJLabel(FontSize.BODY,"Item Listing");

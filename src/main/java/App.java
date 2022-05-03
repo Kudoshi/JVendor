@@ -37,7 +37,9 @@ public class App implements IGUIStyle{
     }
 
     public App() {
+        globalVar = new HashMap<String, Object>();
         window = new JFrame();
+
         //Frame initialization
         window.setSize(WINDOW_MAX_WIDTH,WINDOW_MAX_HEIGHT);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -45,6 +47,7 @@ public class App implements IGUIStyle{
         window.setLayout(null);
         window.setLocationRelativeTo(null);
         window.setResizable(false);
+
 
 //        WelcomePage welcomePage = new WelcomePage();
 //        welcomePage.InitController(this, window);

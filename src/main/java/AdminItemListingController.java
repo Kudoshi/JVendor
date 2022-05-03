@@ -8,11 +8,6 @@ public class AdminItemListingController implements IPageController {
     private App appInstance;
 
     @Override
-    public void SetWindowInstance(JFrame windowInstance) {
-        this.window = windowInstance;
-    }
-
-    @Override
     public void InitController(App appInstance, JFrame window) {
         this.appInstance = appInstance;
         this.window = window;
@@ -28,14 +23,19 @@ public class AdminItemListingController implements IPageController {
         appInstance.ChangePage(App.AppPage.ADMIN_PAGE.getPageController());
     }
 
-    public void GetItemList()
-    {
-        ArrayList<String[]> itemList = Database.TextFileGetAll(Database.FileType.ITEM);
-    }
-
     public void OnEditItemPage(String itemCode)
     {
         System.out.println("Item Code Edit: " + itemCode);
+        appInstance.SetGlobalVar("Item Code", itemCode);
     }
 
+    public ArrayList<String[]> GetItemList()
+    {
+       return Database.TextFileGetAll(Database.FileType.ITEM);
+    }
+
+    @Override
+    public void SetWindowInstance(JFrame windowInstance) {
+        this.window = windowInstance;
+    }
 }
