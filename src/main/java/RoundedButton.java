@@ -8,25 +8,6 @@ public class RoundedButton extends JButton {
     private Color borderColor = Color.BLACK;
 
     //Constructor
-
-    public RoundedButton (int width, int height)
-    {
-        this.arcDimension = new Dimension(width, height);
-        setOpaque(false);
-        setContentAreaFilled(false);
-        setFocusPainted(false);
-        setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-    }
-
-    public RoundedButton(int radius)
-    {
-        this.arcDimension = new Dimension(radius, radius);
-        setOpaque(false);
-        setContentAreaFilled(false);
-        setFocusPainted(false);
-        setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-    }
-
     public RoundedButton(int radius, Color fillColor, Color borderColor)
     {
         this.arcDimension = new Dimension(radius, radius);
@@ -35,7 +16,6 @@ public class RoundedButton extends JButton {
         setOpaque(false);
         setContentAreaFilled(false);
         setFocusPainted(false);
-        setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
     }
 
     @Override
@@ -56,29 +36,4 @@ public class RoundedButton extends JButton {
     }
 
 
-
-    //Getters and setters
-    public Dimension getArcDimension() {
-        return arcDimension;
-    }
-
-    public void setArcDimension(Dimension arcDimension) {
-        this.arcDimension = arcDimension;
-    }
-
-    public Color getFillColor() {
-        return fillColor;
-    }
-
-    public void setFillColor(Color fillColor) {
-        this.fillColor = fillColor;
-    }
-
-    public Color getBorderColor() {
-        return borderColor;
-    }
-
-    public void setBorderColor(Color borderColor) {
-        this.borderColor = borderColor;
-    }
 }

@@ -1,30 +1,8 @@
-BF240;G1;24;stock.png;MAIN;24.45
-HL002;G2;25;jyuumin.png;MAIN;24.0
-BF245;G3;420;stock.png;MAIN;24.45
-BF240;G4;24;stock.png;MAIN;24.45
-HL002;G5;25;jyuumin.png;MAIN;24.0
-BF245;Gugu4200;420;stock.png;MAIN;24.45
-BF240;Gugu420;24;stock.png;MAIN;24.45
-HL002;G8;25;jyuumin.png;MAIN;24.0
-BF245;Gugu4200;420;stock.png;MAIN;24.45
-BF240;Gugu420;24;stock.png;MAIN;24.45
-HL002;G11;25;jyuumin.png;MAIN;24.0
-BF245;Gugu4200;420;stock.png;MAIN;24.45
-BF240;Gugu420;24;stock.png;MAIN;24.45
-HL002;G14;25;jyuumin.png;MAIN;24.0
-BF245;Gugu4200;420;stock.png;MAIN;24.45
-BF240;G1;24;stock.png;MAIN;24.45
-HL002;G2;25;jyuumin.png;MAIN;24.0
-BF245;G3;420;stock.png;MAIN;24.45
-BF240;G4;24;stock.png;MAIN;24.45
-HL002;G5;25;jyuumin.png;MAIN;24.0
-BF245;Gugu4200;420;stock.png;MAIN;24.45
-BF240;Gugu420;24;stock.png;MAIN;24.45
-HL002;G8;25;jyuumin.png;MAIN;24.0
-BF245;Gugu4200;420;stock.png;MAIN;24.45
-BF240;Gugu420;24;stock.png;MAIN;24.45
-HL002;G11;25;jyuumin.png;MAIN;24.0
-BF245;Gugu4200;420;stock.png;MAIN;24.45
-BF240;Gugu420;24;stock.png;MAIN;24.45
-HL002;G14;25;jyuumin.png;MAIN;24.0
-BF245;Gugu4200;420;stock.png;MAIN;24.45
+00002;Donkey Kong;0;Donkey Kong.png;123;
+00004;asd;0;asd.png;12;
+00005;as;0;as.png;12;
+00006;12;0;12.png;21;
+00007;Donkey Kong Land 2021;0;DonkeyKongLand2021.png;21;
+00008;123 123;0;123123.png;12;
+00009;test test test;0;testtesttest.png;1231;
+00010;asdf;0;asdf.png;123;

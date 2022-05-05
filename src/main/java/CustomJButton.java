@@ -33,6 +33,14 @@ public class CustomJButton extends JButton {
         setFont(font);
         setForeground(Color.BLACK);
     }
+    public CustomJButton(int size, String text, int fontStyle) {
+
+        setLayout(null);
+        setText(text);
+        Font font = new Font(defaultFont, fontStyle, size);
+        setFont(font);
+        setForeground(Color.BLACK);
+    }
 
 
     public CustomJButton(String text, Icon icon) {

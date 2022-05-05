@@ -52,7 +52,7 @@ public class App implements IGUIStyle{
 //        WelcomePage welcomePage = new WelcomePage();
 //        welcomePage.InitController(this, window);
 //        currentPage = welcomePage;
-        ChangePage(AppPage.ADMIN_ITEM_LISTING_PAGE.getPageController());
+        ChangePage(AppPage.ADMIN_ADD_ITEM_PAGE.getPageController());
 
         window.setVisible(true);
     }

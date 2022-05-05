@@ -8,23 +8,21 @@ public class Item {
     private String itemName;
     private int stock;
     private String pictureName;
-    private ItemCategory category;
     private float price;
 
-    public Item(String itemCode, String itemName, int stock, String pictureName, ItemCategory category, float price) {
+    public Item(String itemCode, String itemName, int stock, String pictureName, float price) {
         this.itemCode = itemCode;
         this.itemName = itemName;
         this.stock = stock;
         this.pictureName = pictureName;
-        this.category = category;
         this.price = price;
     }
 
-    public Item(String itemName, int stock, String pictureName, ItemCategory category, float price) {
+    public Item(String itemName, int stock, String pictureName, float price) {
+        this.itemCode = null;
         this.itemName = itemName;
         this.stock = stock;
         this.pictureName = pictureName;
-        this.category = category;
         this.price = price;
     }
 
@@ -65,14 +63,6 @@ public class Item {
         this.pictureName = picturePath;
     }
 
-    public ItemCategory getCategory() {
-        return category;
-    }
-
-    public void setCategory(ItemCategory category) {
-        this.category = category;
-    }
-
     public float getPrice() {
         return price;
     }
@@ -83,11 +73,3 @@ public class Item {
 
 }
 
-enum ItemCategory
-{
-    MAIN,
-    BEVERAGE,
-    DESSERT,
-    SNACKS,
-    OTHERS
-}

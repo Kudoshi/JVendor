@@ -4,6 +4,10 @@ import java.lang.reflect.Field;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -52,8 +56,10 @@ public class Database {
     /** Creates a record with the following item details
      *  It checks for duplicated item code
      *  NOTE: The first index array of data will be replaced with a generated id code. Leave the first index blank
+     *  NOTE: Item's 3rd index array of data should be the full path to source image.
+     *  It will be replaced with the proper file name in resource folder later when saved
      * @param fileType FileType of the data you want to create
-     * @param createData Array of strings that contains the information of the data filled in
+     * @param createData Array of strings or array of objects that contains the information of the data filled in
      * @return boolean Returns true or false indicating the success of creating a new data record in the database
      */
     public static <T> boolean TextFileCreate(FileType fileType, Object[] createData){
@@ -64,14 +70,35 @@ public class Database {
             return false;
         }
 
-        //Check for duplicated item
-        String[] searchData = TextFileGetByID(fileType, (String) createData[0]);
-
-        if (searchData != null)
-        {
-            return false;
-        }
         createData[0] = GenerateID(fileType);
+
+        //Upload item picture if its file type item
+        if (fileType.equals(FileType.ITEM))
+        {
+            Path originalPath = Paths.get((String)createData[3]);
+
+            String newFileName = createData[1].toString().replaceAll(" ","") + ".png";
+            createData[3] = newFileName;
+            String newFilePath = Database.class.getResource("Item/").toString() +
+                    createData[0] + "_" + newFileName;
+            Path targetPath = null;
+
+
+            try {
+                targetPath = Paths.get(new URI(newFilePath));
+            } catch (URISyntaxException e) {
+                e.printStackTrace();
+            }
+
+            try
+            {
+                Files.copy(originalPath, targetPath, StandardCopyOption.REPLACE_EXISTING);
+            } catch (IOException e) {
+                e.printStackTrace();
+                return false;
+            }
+
+        }
 
         //Append to file
         File file = new File(fileType.getFileLocationURI());
@@ -357,21 +384,18 @@ public class Database {
                 try {
                     switch (fields[i].getType().toString()) {
                         case "int":
-                            int checkInt = (int) dataRecord[i];
+                            int checkInt = Integer.parseInt(String.valueOf(dataRecord[i]));
                             break;
                         case "float":
-                            float checkFloat = (float) dataRecord[i];
+                            float checkFloat = Float.parseFloat(String.valueOf(dataRecord[i]));
 
                             break;
                         case "boolean":
-                            boolean checkBoolean = (boolean) dataRecord[i];
+                            boolean checkBoolean = Boolean.parseBoolean(String.valueOf(dataRecord[i]));
                             break;
                         case "double":
-                            double checkDouble = (double) dataRecord[i];
-
+                            double checkDouble = Double.parseDouble(String.valueOf(dataRecord[i]));
                             break;
-                        case "char":
-                            char checkChar = (char) dataRecord[i];
                         default:
                             throw new Exception("Non-supported primitive data types detected");
                     }
@@ -453,8 +477,7 @@ public class Database {
     public static void main(String[] args) {
 //        Object[] item = {"00001", "DUsdsdsdsBAI21",69,"scuba.png", ItemCategory.BEVERAGE, 22.45F};
 //
-//        System.out.println(TextFileUpdateData(FileType.ITEM, item));
-
+//        System.out.println(TextFileUpdateData(FileType.ITEM, item))
 
 
     }
