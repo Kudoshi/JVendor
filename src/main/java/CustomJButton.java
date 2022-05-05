@@ -52,29 +52,10 @@ public class CustomJButton extends JButton {
 
     public CustomJButton(String imageName, Dimension targetSize, ImageType imageType, boolean haveBorderStyling)
     {
-        BufferedImage resizedIcon = null;
-        URI filePath;
-        if (imageType.equals(ImageType.ICON))
-        {
-            filePath = Database.RetrieveIconPathURI(imageName);
-        }
-        else
-        {
-            filePath = Database.RetrieveItemImgURI(imageName);
-        }
+        Icon icon = ResizeImageUtility.ResizeImageUtility(imageName,targetSize, imageType);
 
-        // Resize image
-        try {
-            BufferedImage oriImg = ImageIO.read(new File(filePath));
-            resizedIcon = Thumbnails.of(oriImg).size(targetSize.width,targetSize.height).asBufferedImage();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        // Create button
-        ImageIcon imgIcon =  new ImageIcon(resizedIcon);
         setModel(new DefaultButtonModel());
-        init(null, (Icon) imgIcon);
+        init(null, (Icon) icon);
 
         // Remove button styling
         setFocusPainted(false);

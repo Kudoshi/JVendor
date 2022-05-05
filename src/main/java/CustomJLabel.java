@@ -62,30 +62,10 @@ public class CustomJLabel extends JLabel {
 
     public CustomJLabel(String imageName, Dimension targetSize, ImageType imageType, boolean haveBorderStyling)
     {
-        BufferedImage resizedIcon = null;
-        URI filePath;
+        Icon icon = ResizeImageUtility.ResizeImageUtility(imageName,targetSize, imageType);
 
-        if (imageType.equals(ImageType.ICON))
-        {
-            filePath = Database.RetrieveIconPathURI(imageName);
-        }
-        else
-        {
-            filePath = Database.RetrieveItemImgURI(imageName);
-        }
-
-        // Resize image
-        try {
-            BufferedImage oriImg = ImageIO.read(new File(filePath));
-            resizedIcon = Thumbnails.of(oriImg).size(targetSize.width,targetSize.height).asBufferedImage();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        // Create button
-        ImageIcon imgIcon =  new ImageIcon(resizedIcon);
         setText(null);
-        setIcon((Icon) imgIcon);
+        setIcon((Icon) icon);
         setHorizontalAlignment(CENTER);
         updateUI();
         setAlignmentX(LEFT_ALIGNMENT);
