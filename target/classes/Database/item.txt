@@ -1,8 +1,0 @@
-00002;Donkey Kong;0;Donkey Kong.png;123;
-00004;asd;0;asd.png;12;
-00005;as;0;as.png;12;
-00006;12;0;12.png;21;
-00007;Donkey Kong Land 2021;0;DonkeyKongLand2021.png;21;
-00008;123 123;0;123123.png;12;
-00009;test test test;0;testtesttest.png;1231;
-00010;asdf;0;asdf.png;123;

@@ -77,10 +77,9 @@ public class Database {
         {
             Path originalPath = Paths.get((String)createData[3]);
 
-            String newFileName = createData[1].toString().replaceAll(" ","") + ".png";
+            String newFileName = createData[0]+"_"+createData[1].toString().replaceAll(" ","") + ".png";
             createData[3] = newFileName;
-            String newFilePath = Database.class.getResource("Item/").toString() +
-                    createData[0] + "_" + newFileName;
+            String newFilePath = Database.class.getResource("Item/").toString() + newFileName;
             Path targetPath = null;
 
 
@@ -453,12 +452,11 @@ public class Database {
     {
         //Item name are in the form of 00025_ItemName
 
-        String itemName = itemFilename.split("_")[1];
 
         URI pathURI = null;
         try {
 
-            pathURI = Database.class.getResource("Item/"+ itemName+".png").toURI();
+            pathURI = Database.class.getResource("Item/"+ itemFilename).toURI();
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }

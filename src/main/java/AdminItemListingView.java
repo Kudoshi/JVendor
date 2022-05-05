@@ -57,49 +57,62 @@ public class AdminItemListingView extends JPanel implements IGUIStyle{
 
         //Item listing
         ArrayList<String[]> itemList = controller.GetItemList();
-        int preferredHeight = itemList.size() * 55;
+        int containerHeight = 575; //575 in accordance with JScrollPane height
+        if (itemList != null)
+        {
+            int preferredHeight = itemList.size() * 55;
+            if (preferredHeight > containerHeight)
+            {
+                containerHeight = preferredHeight;
+            }
+        }
 
         CustomJPanel itemListingContainer = new CustomJPanel();
         itemListingContainer.setLayout(new FlowLayout());
-        itemListingContainer.setPreferredSize(new Dimension(500, preferredHeight));
+        itemListingContainer.setPreferredSize(new Dimension(500, containerHeight));
 
         //Inserting items into listing container
-        for (String[] item: itemList)
+        if (itemList != null && itemList.size() > 0)
         {
-            CustomJPanel itemRecordContainer = new CustomJPanel();
-            itemRecordContainer.setBackground(CustomColor.WHITE_NORMAL);
-            itemRecordContainer.setPreferredSize(new Dimension(500, 50));
+            for (String[] item: itemList)
+            {
+                CustomJPanel itemRecordContainer = new CustomJPanel();
+                itemRecordContainer.setBackground(CustomColor.WHITE_NORMAL);
+                itemRecordContainer.setPreferredSize(new Dimension(500, 50));
 
-            CustomJLabel itemPic = new CustomJLabel("00001_Cola", new Dimension(50,50), ImageType.ITEM_IMAGE, true);
-            itemPic.setBounds(-7,0,50,50);
 
-            CustomJLabel itemName = new CustomJLabel(FontSize.BODY, item[1]);
-            itemName.setBackground(CustomColor.WHITE_NORMAL);
-            itemName.setBounds(45,5,355,50);
-            itemName.setOpaque(true);
+                CustomJLabel itemPic = new CustomJLabel(item[3], new Dimension(50,50), ImageType.ITEM_IMAGE, true);
+                itemPic.setBounds(-7,0,50,50);
 
-            CustomJLabel itemStock = new CustomJLabel(FontSize.BODY, "x "+item[2], Font.BOLD);
-            itemStock.setBounds(400,5, 45, 50);
-            itemStock.setBackground(CustomColor.WHITE_NORMAL);
-            itemStock.setHorizontalAlignment(SwingConstants.CENTER);
-            itemStock.setOpaque(true);
+                CustomJLabel itemName = new CustomJLabel(FontSize.BODY, item[1]);
+                itemName.setBackground(CustomColor.WHITE_NORMAL);
+                itemName.setBounds(45,5,355,50);
+                itemName.setOpaque(true);
 
-            CustomJButton itemEdit = new CustomJButton("Pen", new Dimension(25,25), ImageType.ICON, true);
-            itemEdit.setBounds(450, 5, 40,40);
-            itemEdit.setBackground(CustomColor.WHITE_NORMAL);
-            itemEdit.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-            itemEdit.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    controller.OnEditItemPage(item[0]);
-                }
-            });
-            itemRecordContainer.add(itemPic);
-            itemRecordContainer.add(itemName);
-            itemRecordContainer.add(itemStock);
-            itemRecordContainer.add(itemEdit);
-            itemListingContainer.add(itemRecordContainer);
+                CustomJLabel itemStock = new CustomJLabel(FontSize.BODY, "x "+item[2], Font.BOLD);
+                itemStock.setBounds(400,5, 45, 50);
+                itemStock.setBackground(CustomColor.WHITE_NORMAL);
+                itemStock.setHorizontalAlignment(SwingConstants.CENTER);
+                itemStock.setOpaque(true);
 
+                CustomJButton itemEdit = new CustomJButton("Pen", new Dimension(25,25), ImageType.ICON, true);
+                itemEdit.setBounds(450, 5, 40,40);
+                itemEdit.setBackground(CustomColor.WHITE_NORMAL);
+                itemEdit.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+                itemEdit.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        controller.OnEditItemPage(item[0]);
+                    }
+                });
+                itemRecordContainer.add(itemPic);
+                itemRecordContainer.add(itemName);
+                itemRecordContainer.add(itemStock);
+                itemRecordContainer.add(itemEdit);
+                itemListingContainer.add(itemRecordContainer);
+
+            }
         }
+
 
         JScrollPane itemScrollPane = new JScrollPane(itemListingContainer);
         itemScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
