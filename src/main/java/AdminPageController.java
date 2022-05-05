@@ -8,11 +8,6 @@ public class AdminPageController implements IPageController
     private App appInstance;
 
     @Override
-    public void SetWindowInstance(JFrame windowInstance) {
-        this.window = windowInstance;
-    }
-
-    @Override
     public void InitController(App appInstance, JFrame window) {
         this.appInstance = appInstance;
         this.window = window;

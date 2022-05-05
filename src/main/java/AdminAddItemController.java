@@ -21,11 +21,6 @@ public class AdminAddItemController implements IPageController
     private String imageLocation = "";
 
     @Override
-    public void SetWindowInstance(JFrame windowInstance) {
-        this.window = windowInstance;
-    }
-
-    @Override
     public void InitController(App appInstance, JFrame window) {
         this.appInstance = appInstance;
         this.window = window;
@@ -131,6 +126,7 @@ public class AdminAddItemController implements IPageController
             else
             {
                 imageLocation = "";
+                view.SetUIImageFileName(imageLocation);
                 view.TriggerErrorDialogue("Error Uploading Image",
                         "Format of image uploaded is not compatible.\n\nImage must be in png format");
             }
@@ -138,6 +134,4 @@ public class AdminAddItemController implements IPageController
 
     }
 
-
-    //Events
 }

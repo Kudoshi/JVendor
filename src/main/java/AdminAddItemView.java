@@ -64,13 +64,6 @@ public class AdminAddItemView extends JPanel implements IGUIStyle{
         formContainer.setBounds(50,150, 500,500);
         formContainer.setLayout(null);
 
-        formContainer.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mousePressed(MouseEvent e) {
-                System.out.println(e.getX() + "," + e.getY());
-            }
-        });
-
         //Item Pic
         CustomJLabel formPic = new CustomJLabel(FontSize.BODY, "Item Picture:", Font.BOLD);
         formPic.setBounds(40, 40, 150, 30);

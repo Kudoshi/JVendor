@@ -34,8 +34,4 @@ public class AdminItemListingController implements IPageController {
        return Database.TextFileGetAll(Database.FileType.ITEM);
     }
 
-    @Override
-    public void SetWindowInstance(JFrame windowInstance) {
-        this.window = windowInstance;
-    }
 }

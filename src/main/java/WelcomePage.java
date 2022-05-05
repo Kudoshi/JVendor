@@ -16,12 +16,6 @@ public class WelcomePage extends CustomJPanel implements IGUIStyle, IPageControl
 
     private JOptionPane adminParentPanel;
 
-
-    @Override
-    public void SetWindowInstance(JFrame windowInstance) {
-        this.window = windowInstance;
-    }
-
     @Override
     public void InitController(App appInstance, JFrame window) {
         this.appInstance = appInstance;
@@ -60,7 +54,7 @@ public class WelcomePage extends CustomJPanel implements IGUIStyle, IPageControl
         roundedButton.setVisible(true);
         roundedButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                System.out.println("To Item List");
+                appInstance.ChangePage(App.AppPage.CUSTOMER_ITEM_LISTING_PAGE.getPageController());
             }
         });
 

@@ -25,7 +25,7 @@ public class ResizeImageUtility {
         // Resize image
         try {
             BufferedImage oriImg = ImageIO.read(new File(filePath));
-            resizedIcon = Thumbnails.of(oriImg).size(targetSize.width,targetSize.height).asBufferedImage();
+            resizedIcon = Thumbnails.of(oriImg).size(targetSize.width,targetSize.height).keepAspectRatio(false).asBufferedImage();
         } catch (IOException e) {
             e.printStackTrace();
         }

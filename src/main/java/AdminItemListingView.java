@@ -44,15 +44,15 @@ public class AdminItemListingView extends JPanel implements IGUIStyle{
             }
         });
 
-        // Item category banner
+        // Item listing banner
 
-        CustomJLabel addNewItemBanner = new CustomJLabel(FontSize.HEADER2, "Item Listing", Font.BOLD);
-        addNewItemBanner.setBounds(0,70, WINDOW_MAX_WIDTH, 50);
-        addNewItemBanner.setHorizontalAlignment(SwingConstants.CENTER);
-        addNewItemBanner.setVerticalAlignment(SwingConstants.CENTER);
-        addNewItemBanner.setBackground(CustomColor.BLACK_MAIN);
-        addNewItemBanner.setOpaque(true);
-        addNewItemBanner.setForeground(CustomColor.WHITE_NORMAL);
+        CustomJLabel itemListingBanner = new CustomJLabel(FontSize.HEADER2, "Item Listing", Font.BOLD);
+        itemListingBanner.setBounds(0,70, WINDOW_MAX_WIDTH, 50);
+        itemListingBanner.setHorizontalAlignment(SwingConstants.CENTER);
+        itemListingBanner.setVerticalAlignment(SwingConstants.CENTER);
+        itemListingBanner.setBackground(CustomColor.BLACK_MAIN);
+        itemListingBanner.setOpaque(true);
+        itemListingBanner.setForeground(CustomColor.WHITE_NORMAL);
 
 
         //Item listing
@@ -83,10 +83,12 @@ public class AdminItemListingView extends JPanel implements IGUIStyle{
 
                 CustomJLabel itemPic = new CustomJLabel(item[3], new Dimension(50,50), ImageType.ITEM_IMAGE, true);
                 itemPic.setBounds(-7,0,50,50);
+                itemPic.setBackground(CustomColor.WHITE_DARK_2);
+                itemPic.setOpaque(true);
 
                 CustomJLabel itemName = new CustomJLabel(FontSize.BODY, item[1]);
                 itemName.setBackground(CustomColor.WHITE_NORMAL);
-                itemName.setBounds(45,5,355,50);
+                itemName.setBounds(50,5,350,50);
                 itemName.setOpaque(true);
 
                 CustomJLabel itemStock = new CustomJLabel(FontSize.BODY, "x "+item[2], Font.BOLD);
@@ -118,7 +120,6 @@ public class AdminItemListingView extends JPanel implements IGUIStyle{
         itemScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         itemScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         itemScrollPane.setBounds(50,150, 500,575);
-        itemScrollPane.setBackground(Color.YELLOW);
 
 
 
@@ -130,7 +131,7 @@ public class AdminItemListingView extends JPanel implements IGUIStyle{
         add(itemScrollPane);
         add(backBtn);
         add(brandBannerParent);
-        add(addNewItemBanner);
+        add(itemListingBanner);
         window.add(this);
     }
 }
