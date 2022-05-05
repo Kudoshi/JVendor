@@ -118,14 +118,6 @@ public class CustomerItemListingView extends JPanel implements IGUIStyle {
         itemScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         itemScrollPane.setBounds(0,120, 585,641);
 
-        itemScrollPane.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mousePressed(MouseEvent e) {
-                System.out.println(e.getX() + "," + e.getY());
-            }
-        });
-
-
         //Add
 
         brandBannerParent.add(brandBannerTitle);

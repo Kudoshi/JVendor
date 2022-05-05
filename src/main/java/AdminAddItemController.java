@@ -37,7 +37,6 @@ public class AdminAddItemController implements IPageController
     }
 
     public void OnSubmit(String itemName, String itemPrice) {
-        System.out.println("On Submit");
 
         itemName = itemName.strip();
         itemPrice = itemPrice.strip();
