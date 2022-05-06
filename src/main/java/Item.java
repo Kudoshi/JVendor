@@ -26,6 +26,15 @@ public class Item {
         this.price = price;
     }
 
+    public Item(String[] valueArr)
+    {
+        this.itemCode = valueArr[0];
+        this.itemName = valueArr[1];
+        this.stock = Integer.parseInt(valueArr[2]);
+        this.pictureName = valueArr[3];
+        this.price = Float.parseFloat(valueArr[4]);
+    }
+
     // PrintAllData
 
 

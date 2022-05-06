@@ -22,10 +22,6 @@ public class CustomJButton extends JButton {
         setForeground(Color.BLACK);
     }
 
-    public CustomJButton(Icon icon) {
-        super(icon);
-    }
-
     public CustomJButton(String text) {
         setLayout(null);
         setText(text);
@@ -42,13 +38,6 @@ public class CustomJButton extends JButton {
         setForeground(Color.BLACK);
     }
 
-
-    public CustomJButton(String text, Icon icon) {
-        super(text, icon);
-        Font font = new Font(defaultFont, Font.PLAIN, getFont().getSize());
-        setFont(font);
-        setForeground(Color.BLACK);
-    }
 
     public CustomJButton(String imageName, Dimension targetSize, ImageType imageType, boolean haveBorderStyling)
     {

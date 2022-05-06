@@ -25,8 +25,8 @@ public class AdminItemListingController implements IPageController {
 
     public void OnEditItemPage(String itemCode)
     {
-        System.out.println("Item Code Edit: " + itemCode);
-        appInstance.SetGlobalVar("Item Code", itemCode);
+        appInstance.SetGlobalVar("ItemCode", itemCode);
+        appInstance.ChangePage(App.AppPage.ADMIN_ITEM_EDIT_PAGE.getPageController());
     }
 
     public ArrayList<String[]> GetItemList()

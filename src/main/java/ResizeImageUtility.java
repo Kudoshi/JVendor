@@ -7,19 +7,25 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
+import java.net.URISyntaxException;
+import java.nio.file.Paths;
 
 public class ResizeImageUtility {
 
     public static Icon ResizeImageUtility(String imageName, Dimension targetSize, ImageType imageType) {
         BufferedImage resizedIcon = null;
-        URI filePath;
+        URI filePath = null;
         if (imageType.equals(ImageType.ICON))
         {
             filePath = Database.RetrieveIconPathURI(imageName);
         }
-        else
+        else if (imageType.equals(ImageType.ITEM_IMAGE))
         {
             filePath = Database.RetrieveItemImgURI(imageName);
+        }
+        else
+        {
+            filePath = Paths.get(imageName).toUri();
         }
 
         // Resize image

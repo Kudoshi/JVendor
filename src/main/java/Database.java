@@ -221,6 +221,40 @@ public class Database {
             return false;
         }
 
+        //Upload item picture if its file type item
+        if (fileType.equals(FileType.ITEM))
+        {
+            // Check if given file name is equals to the original file name
+            // If the same no need to overwrite or upload new image
+            if (! updateData[3].toString().equals(oriData[3]))
+            {
+                Path originalPath = Paths.get((String)updateData[3]);
+
+                updateData[3] = oriData[3];
+                String originalSrcPath = Database.class.getResource("Item/").toString() + oriData[3];
+                Path targetPath = null;
+
+
+                try {
+                    targetPath = Paths.get(new URI(originalSrcPath));
+                } catch (URISyntaxException e) {
+                    e.printStackTrace();
+                }
+
+                try
+                {
+                    Files.copy(originalPath, targetPath, StandardCopyOption.REPLACE_EXISTING);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    return false;
+                }
+
+            }
+
+
+        }
+
+
         //Update item list
         boolean isUpdated = false;
         for (int i = 0; i < dataList.size(); i++) {
@@ -271,17 +305,16 @@ public class Database {
     }
 
     /**
-     * Updates the information of the specified data record.
-     * The data record's first index (id code) cannot be changed
+     * Delete the data record from the database based on the dataCode given
      *
      * @param fileType The file type wishes to update the item
-     * @param updateData The record with the new details along with the appropriate id code (The first index)
-     * @return boolean Indicating the success of updating the item with new data
+     * @param dataCode The code of the data to be deleted. The first index of the data record.
+     * @return boolean Indicating the success of deleting the item
      */
-    public static boolean TextFileDelete(FileType fileType, String[] updateData)
+    public static boolean TextFileDelete(FileType fileType, String dataCode)
     {
         //Check if in database
-        String[] oriData = TextFileGetByID(fileType, updateData[0]);
+        String[] oriData = TextFileGetByID(fileType,dataCode);
         if (oriData == null)
         {
             return false;
@@ -294,26 +327,22 @@ public class Database {
             return false;
         }
 
-        //Update item list
-        boolean isUpdated = false;
+        //Delete Item List
+        int indexToBeRemoved = -1;
         for (int i = 0; i < dataList.size(); i++) {
-            if (dataList.get(i)[0].equals(updateData[0]))
+            if (dataList.get(i)[0].equals(dataCode))
             {
-                //Ensures data to be updated has same amt of attributes as the one in database
-                if (updateData.length != dataList.get(i).length ) {
-                    isUpdated = false;
-                    break;
-                }
-                dataList.set(i, updateData);
-                isUpdated = true;
+                indexToBeRemoved = i;
                 break;
             }
         }
 
-        if (isUpdated == false)
+        if (indexToBeRemoved == -1)
         {
             return false;
         }
+
+        dataList.remove(indexToBeRemoved);
 
         //Write to file
         try
