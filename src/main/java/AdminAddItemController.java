@@ -82,7 +82,8 @@ public class AdminAddItemController implements IPageController
         }
 
         //Upload to database
-        String[] itemValues = new String[] {"", itemName, "0", imageLocation, itemPrice };
+        float itemPriceFloat = Float.parseFloat(itemPrice);
+        String[] itemValues = new String[] {"", itemName, "0", imageLocation, String.format("%.2f", itemPriceFloat) };
         boolean isSuccessCreate = Database.TextFileCreate(Database.FileType.ITEM, itemValues);
 
         if (isSuccessCreate)

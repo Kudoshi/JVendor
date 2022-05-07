@@ -92,7 +92,8 @@ public class AdminItemEditController  implements IPageController
         }
 
 //        Upload to database
-        String[] itemValues = new String[] {itemEditing.getItemCode(), itemName, String.valueOf(itemEditing.getStock()), imageLocation, itemPrice };
+        float itemPriceFloat = Float.parseFloat(itemPrice);
+        String[] itemValues = new String[] {itemEditing.getItemCode(), itemName, String.valueOf(itemEditing.getStock()), imageLocation, String.format("%.2f", itemPriceFloat)  };
         boolean isSuccessCreate = Database.TextFileUpdateData(Database.FileType.ITEM, itemValues);
 
         if (isSuccessCreate)
