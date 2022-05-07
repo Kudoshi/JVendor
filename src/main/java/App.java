@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.awt.*;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -17,11 +18,15 @@ public class App implements IGUIStyle{
         //Open main window
         App appInstance = new App();
     }
+
+
+
     enum AppPage
     {
         MAIN_PAGE(WelcomePage.class), ADMIN_PAGE(AdminPageController.class),
         ADMIN_ADD_ITEM_PAGE(AdminAddItemController.class), ADMIN_ITEM_LISTING_PAGE(AdminItemListingController.class),
-        CUSTOMER_ITEM_LISTING_PAGE(CustomerItemListingController.class), ADMIN_ITEM_EDIT_PAGE(AdminItemEditController.class);
+        CUSTOMER_ITEM_LISTING_PAGE(CustomerItemListingController.class), ADMIN_ITEM_EDIT_PAGE(AdminItemEditController.class),
+        ADMIN_TRANSACTION_PAGE(AdminTransactionController.class);
 
         private Class<?> pageController;
 
@@ -53,7 +58,7 @@ public class App implements IGUIStyle{
 //        WelcomePage welcomePage = new WelcomePage();
 //        welcomePage.InitController(this, window);
 //        currentPage = welcomePage;
-        ChangePage(AppPage.CUSTOMER_ITEM_LISTING_PAGE.getPageController());
+        ChangePage(AppPage.ADMIN_TRANSACTION_PAGE.getPageController());
 
         window.setVisible(true);
     }
@@ -73,6 +78,18 @@ public class App implements IGUIStyle{
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         }
+    }
+
+    public void ShutDown() {
+        JPanel panel = new JPanel();
+        JLabel message = new JLabel("<html><p style='text-align:center; width: 300;'>" +
+                "WARNING: This will shutdown the vending machine<br><br>Are you sure?" +
+                "</p></html>");
+        message.setForeground(Color.RED);
+        panel.add(message);
+        int userDecision = JOptionPane.showConfirmDialog(null, message, "Exit", JOptionPane.OK_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE);
+        if (userDecision == 0)
+            System.exit(1);
     }
 
     public Object GetGlobalVar(String key) {

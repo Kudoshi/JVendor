@@ -35,4 +35,12 @@ public class AdminPageController implements IPageController
     {
         this.appInstance.ChangePage(App.AppPage.ADMIN_ITEM_LISTING_PAGE.getPageController());
     }
+
+    public void OnTransactionHistoryPage() {
+        this.appInstance.ChangePage(App.AppPage.ADMIN_TRANSACTION_PAGE.getPageController());
+    }
+
+    public void OnShutDown() {
+        this.appInstance.ShutDown();
+    }
 }

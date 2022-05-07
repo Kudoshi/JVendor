@@ -57,7 +57,7 @@ public class AdminPageView extends JPanel implements IGUIStyle {
         itemCategoryBanner.setOpaque(true);
         itemCategoryBanner.setForeground(CustomColor.WHITE_NORMAL);
 
-        //Middle Button Left
+        //Add New Item Button
 
         CustomJButton newItemBtn = new CustomJButton();
         newItemBtn.setLayout(null);
@@ -77,7 +77,7 @@ public class AdminPageView extends JPanel implements IGUIStyle {
         newItemTitle.setBounds(30,130,100,50);
         newItemTitle.setForeground(CustomColor.BLUE_BRAND);
 
-        //Middle Button Right
+        //Item Listing Button
 
         CustomJButton itemListingBtn = new CustomJButton();
         itemListingBtn.setLayout(null);
@@ -97,7 +97,7 @@ public class AdminPageView extends JPanel implements IGUIStyle {
         itemListingTitle.setBounds(40,130,100,50);
         itemListingTitle.setForeground(CustomColor.BLUE_BRAND);
 
-        // Item category banner
+        // Others category banner
 
         CustomJLabel othersCategoryBanner = new CustomJLabel(FontSize.HEADER2, "Others", Font.BOLD);
         othersCategoryBanner.setBounds(0,400, WINDOW_MAX_WIDTH, 50);
@@ -108,6 +108,45 @@ public class AdminPageView extends JPanel implements IGUIStyle {
         othersCategoryBanner.setForeground(CustomColor.WHITE_NORMAL);
 
 
+        //Transaction History Button
+
+        CustomJButton transactionHistoryBtn = new CustomJButton();
+        transactionHistoryBtn.setLayout(null);
+        transactionHistoryBtn.setBorder(new LineBorder(CustomColor.BLUE_BRAND));
+        transactionHistoryBtn.setBounds(100,480,150,180);
+        transactionHistoryBtn.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                controller.OnTransactionHistoryPage();
+            }
+        });
+
+        CustomJLabel transactionIcon = new CustomJLabel("Transaction", new Dimension(75,75), ImageType.ICON, true);
+        transactionIcon.setBounds(35,25,75,75);
+
+        CustomJLabel transactionTitle = new CustomJLabel(FontSize.BODY,"Transaction History");
+        transactionTitle.setLayout(null);
+        transactionTitle.setBounds(15,130,140,50);
+        transactionTitle.setForeground(CustomColor.BLUE_BRAND);
+
+        //Shutdown Button
+
+        CustomJButton shutdownBtn = new CustomJButton();
+        shutdownBtn.setLayout(null);
+        shutdownBtn.setBorder(new LineBorder(CustomColor.BLUE_BRAND));
+        shutdownBtn.setBounds(320,480,150,180);
+        shutdownBtn.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                controller.OnShutDown();
+            }
+        });
+
+        CustomJLabel shutdownIcon = new CustomJLabel("Shutdown", new Dimension(75,75), ImageType.ICON, true);
+        shutdownIcon.setBounds(35,25,75,75);
+
+        CustomJLabel shutdownTitle = new CustomJLabel(FontSize.BODY,"Shutdown System");
+        shutdownTitle.setLayout(null);
+        shutdownTitle.setBounds(20,130,140,50);
+        shutdownTitle.setForeground(CustomColor.BLUE_BRAND);
         // Add components
 
         brandBannerParent.add(brandBannerTitle, BorderLayout.CENTER);
@@ -115,12 +154,18 @@ public class AdminPageView extends JPanel implements IGUIStyle {
         newItemBtn.add(newItemTitle);
         itemListingBtn.add(itemListingIcon);
         itemListingBtn.add(itemListingTitle);
+        transactionHistoryBtn.add(transactionIcon);
+        transactionHistoryBtn.add(transactionTitle);
+        shutdownBtn.add(shutdownIcon);
+        shutdownBtn.add(shutdownTitle);
 
         add(backBtn);
         add(brandBannerParent);
         add(itemCategoryBanner);
         add(newItemBtn);
         add(itemListingBtn);
+        add(transactionHistoryBtn);
+        add(shutdownBtn);
         add(othersCategoryBanner);
 
         window.add(this);
