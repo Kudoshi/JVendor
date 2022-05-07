@@ -8,10 +8,12 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -19,15 +21,13 @@ import java.util.logging.Logger;
 public class Database {
 
     /**
-     * An enum that stores the type of database file and the file location of the database
+     * An enum that stores the type of database file and the file location of the database text file
      *
      */
     enum FileType
     {
-        CART("Database/cart.txt", Cart.class), ITEM("Database/item.txt", Item.class),
-        ITEM_STATISTIC("Database/item_statistic.txt", Item_Statistic.class),
-        TRANSACTION("Database/transaction.txt", Transaction.class),
-        STATISTIC("Database/statistic.txt", Statistic.class);
+        ITEM("Database/item.txt", Item.class),
+        TRANSACTION("Database/transaction.txt", Transaction.class);
         private URL fileLocation;
         private Class<?> classType;
 
@@ -63,7 +63,7 @@ public class Database {
      * @return boolean Returns true or false indicating the success of creating a new data record in the database
      */
     public static <T> boolean TextFileCreate(FileType fileType, Object[] createData){
-        boolean validateIncomingData = ValidateIncomingData(FileType.ITEM, createData);
+        boolean validateIncomingData = ValidateIncomingData(fileType, createData);
 
         if (validateIncomingData == false)
         {
@@ -499,13 +499,41 @@ public class Database {
             return null;
         }
     }
+/**
+     * Retrieves URI path of the GIF
+     * @param itemFilename Name of the icon without .GIF
+     * @return URI path of the icon. Null if no uri/file is found
+     */
+    public static URI RetrieveGifURI(String itemFilename)
+    {
+        //Item name are in the form of 00025_ItemName
+
+
+        URI pathURI = null;
+        try {
+
+            pathURI = Database.class.getResource("Gif/"+ itemFilename+".gif").toURI();
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+
+        if (pathURI != null)
+        {
+            return pathURI;
+        }
+        else
+        {
+            return null;
+        }
+    }
 
 
     public static void main(String[] args) {
-//        Object[] item = {"00001", "DUsdsdsdsBAI21",69,"scuba.png", ItemCategory.BEVERAGE, 22.45F};
-//
-//        System.out.println(TextFileUpdateData(FileType.ITEM, item))
 
+        String pattern = "HH-mm-MM-dd-yyyy";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+        String date = simpleDateFormat.format(new Date());
+        System.out.println(date);
 
     }
 

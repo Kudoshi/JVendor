@@ -1,5 +1,6 @@
 import com.formdev.flatlaf.FlatLightLaf;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
@@ -7,6 +8,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class CustomerItemListingView extends JPanel implements IGUIStyle {
@@ -65,8 +68,6 @@ public class CustomerItemListingView extends JPanel implements IGUIStyle {
         {
             int rows = (int) (Math.ceil(itemList.size() / 3.0f));
             int preferredHeight = rows * 255;
-            System.out.println("Item List: " + itemList.size());
-            System.out.println(rows);
             if (preferredHeight > containerHeight)
             {
                 containerHeight = preferredHeight;
@@ -88,6 +89,11 @@ public class CustomerItemListingView extends JPanel implements IGUIStyle {
                 itemContainer.setBackground(CustomColor.WHITE_NORMAL);
                 itemContainer.setBorder(new LineBorder(CustomColor.BLACK_MAIN));
                 itemContainer.setLayout(null);
+                itemContainer.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        controller.OnItemClick(item);
+                    }
+                });
 
                 CustomJLabel itemPicture = new CustomJLabel(item[3], new Dimension(110,110),
                         ImageType.ITEM_IMAGE, false);
@@ -133,5 +139,53 @@ public class CustomerItemListingView extends JPanel implements IGUIStyle {
         add(brandBannerParent);
         add(itemListingBanner);
         window.add(this);
+    }
+
+    public void SetUIPayment(Item item)
+    {
+        CustomJPanel paymentParent = new CustomJPanel();
+        paymentParent.setLayout(null);
+        paymentParent.setPreferredSize(new Dimension(500, 500));
+
+        GifPanel gifContainer = new GifPanel("loading");
+        gifContainer.setBounds(200,0,100,100);
+        gifContainer.setOpaque(true);
+
+        CustomJLabel paymentProcessing = new CustomJLabel(FontSize.BODY, "Payment Processing...", Font.BOLD);
+        paymentProcessing.setBounds(190,110,300,50);
+
+        CustomJLabel paymentTitle = new CustomJLabel(FontSize.HEADER1, "RM "+String.format("%.2f", item.getPrice()), Font.PLAIN);
+        paymentTitle.setBounds(150, 200, 200, 40);
+        paymentTitle.setHorizontalAlignment(SwingConstants.CENTER);
+        paymentTitle.setForeground(CustomColor.GREEN_ATTENTION);
+        paymentTitle.setOpaque(true);
+
+        CustomJLabel paymentSubTitle = new CustomJLabel(FontSize.HEADER2, "<html><p style='text-align: center; width: 400'>" +
+                String.valueOf(item.getItemName())+"</p></html>", Font.BOLD);
+//        String deleteWarningMsg = "<html><p style='text-align: center; " +
+//                "color: red;'> " +
+//                "WARNING: Item will be permanently deleted<br><br>" +
+//                "Are you sure you want to delete this item?</p></html>";
+        paymentSubTitle.setBounds(50, 230, 400, 60);
+        paymentSubTitle.setOpaque(true);
+
+
+        GifPanel posGif = new GifPanel("pos");
+        posGif.setBounds(170,300, 180,180);
+
+
+        paymentParent.add(gifContainer);
+        paymentParent.add(paymentProcessing);
+        paymentParent.add(paymentTitle);
+        paymentParent.add(paymentSubTitle);
+        paymentParent.add(posGif);
+
+        controller.PopupPayPanel(paymentParent, item);
+    }
+
+    public void TriggerErrorDialogue(String title, String errorMessage)
+    {
+
+        JOptionPane.showMessageDialog(null, errorMessage, title, JOptionPane.ERROR_MESSAGE);
     }
 }

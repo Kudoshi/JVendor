@@ -35,9 +35,6 @@ public class Item {
         this.price = Float.parseFloat(valueArr[4]);
     }
 
-    // PrintAllData
-
-
     // Getter and Setter
 
     public String getItemCode() {
