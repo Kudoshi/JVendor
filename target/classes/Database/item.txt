@@ -1,0 +1,7 @@
+00001;Bfr;25;00001_Bfr.png;123.00
+00002;Apple12;4;00002_Apple.png;1234.0
+00003;Teh Tarik;0;00003_TehTarik.png;4.45
+00004;Buttons sd;0;00004_Buttonssd.png;1234
+00005;asd41;0;00005_asd41.png;2
+00006;CoolAids21;0;00006_CoolAids21.png;1
+00007;Cool Lemondade 212;0;00007_CoolLemondade212.png;12

@@ -53,9 +53,9 @@ public class AdminItemEditController  implements IPageController
         }
 
         //Validation
-        if (itemName.contains(";") || itemName.contains("&"))
+        if (!itemName.matches("^[A-Za-z0-9 ]*$"))
         {
-            view.TriggerErrorDialogue("Invalid special character", "Item name should not contain ; or &");
+            view.TriggerErrorDialogue("Invalid special character", "Item name can only contain alphanumeric characters and spaces");
             return;
         }
 

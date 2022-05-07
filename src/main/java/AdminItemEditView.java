@@ -250,5 +250,7 @@ public class AdminItemEditView extends JPanel implements IGUIStyle{
         container.add(restockAmt);
         container.add(confirmbtn);
 
+        JOptionPane.showOptionDialog(null, container, "Restock Item",
+                JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, new Object[]{}, null);
     }
 }

@@ -79,6 +79,10 @@ public class CustomerItemListingView extends JPanel implements IGUIStyle {
 
         if (itemList != null && itemList.size() > 0) {
             for (String[] item : itemList) {
+                if (Integer.parseInt(item[2]) == 0)
+                {
+                    continue;
+                }
                 CustomJButton itemContainer = new CustomJButton();
                 itemContainer.setPreferredSize(new Dimension(150,220));
                 itemContainer.setBackground(CustomColor.WHITE_NORMAL);
