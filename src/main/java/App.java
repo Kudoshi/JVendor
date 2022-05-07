@@ -23,7 +23,7 @@ public class App implements IGUIStyle{
 
     enum AppPage
     {
-        MAIN_PAGE(WelcomePage.class), ADMIN_PAGE(AdminPageController.class),
+        MAIN_PAGE(MainPageController.class), ADMIN_PAGE(AdminPageController.class),
         ADMIN_ADD_ITEM_PAGE(AdminAddItemController.class), ADMIN_ITEM_LISTING_PAGE(AdminItemListingController.class),
         CUSTOMER_ITEM_LISTING_PAGE(CustomerItemListingController.class), ADMIN_ITEM_EDIT_PAGE(AdminItemEditController.class),
         ADMIN_TRANSACTION_PAGE(AdminTransactionController.class);
@@ -58,7 +58,7 @@ public class App implements IGUIStyle{
 //        WelcomePage welcomePage = new WelcomePage();
 //        welcomePage.InitController(this, window);
 //        currentPage = welcomePage;
-        ChangePage(AppPage.ADMIN_TRANSACTION_PAGE.getPageController());
+        ChangePage(AppPage.MAIN_PAGE.getPageController());
 
         window.setVisible(true);
     }

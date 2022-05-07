@@ -106,7 +106,7 @@ public class AdminTransactionView extends JPanel implements IGUIStyle {
                 itemName.setBackground(CustomColor.WHITE_NORMAL);
                 itemName.setBounds(165,5,210,50);
 
-                CustomJLabel itemPrice = new CustomJLabel(FontSize.BODY, "RM "+String.valueOf(item.getPrice()));
+                CustomJLabel itemPrice = new CustomJLabel(FontSize.BODY, "RM "+ String.format("%.2f", item.getPrice()));
                 itemPrice.setBackground(CustomColor.WHITE_NORMAL);
                 itemPrice.setBounds(380,5,100,50);
                 itemPrice.setHorizontalAlignment(SwingConstants.CENTER);

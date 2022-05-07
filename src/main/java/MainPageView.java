@@ -7,80 +7,78 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-/**
- * The UI of the first page welcome screen
- */
-public class WelcomePage extends CustomJPanel implements IGUIStyle, IPageController {
-    private App appInstance;
+public class MainPageView extends JPanel implements IGUIStyle{
     private JFrame window;
+    private MainPageController controller;
 
-    private JOptionPane adminParentPanel;
-
-    @Override
-    public void InitController(App appInstance, JFrame window) {
-        this.appInstance = appInstance;
+    public MainPageView(MainPageController controller, JFrame window)
+    {
         this.window = window;
-        initComponents();
+        this.controller = controller;
+        InitView();
     }
 
-    private void initComponents()
-    {
+    private void InitView() {
         FlatLightLaf.setup();
+
+        setLayout(null);
+        setBounds(0,0, WINDOW_MAX_WIDTH, WINDOW_MAX_HEIGHT);
+
         //TopBar
         JPanel topBar = new JPanel();
-        topBar.setBackground(CustomColor.BLUE_BRAND);
+        topBar.setBackground(IGUIStyle.CustomColor.BLUE_BRAND);
         topBar.setBounds(0,0,WINDOW_MAX_WIDTH, 120);
         topBar.setLayout(null);
         topBar.setVisible(true);
 
         CustomJLabel brandName = new CustomJLabel("JVENDOR", new Font("Calibri", Font.BOLD, 65));
-        brandName.setForeground(CustomColor.WHITE_NORMAL);
+        brandName.setForeground(IGUIStyle.CustomColor.WHITE_NORMAL);
         brandName.setBounds(170,18, 400, 100);
 
         //MidText
         CustomJLabel midTextHeader = new CustomJLabel("Treat yourself better", new Font("Calibri", Font.BOLD, 30));
         midTextHeader.setBounds(165, 100, 400, 100);
-        midTextHeader.setForeground(CustomColor.BLUE_BRAND);
-        CustomJLabel midTextBody = new CustomJLabel(FontSize.BODY,"Food, Beverage, and other goodies just for you");
+        midTextHeader.setForeground(IGUIStyle.CustomColor.BLUE_BRAND);
+        CustomJLabel midTextBody = new CustomJLabel(IGUIStyle.FontSize.BODY,"Food, Beverage, and other goodies just for you");
         midTextBody.setBounds(150, 140, 400, 100);
         JPanel midTextLine = new JPanel();
         midTextLine.setBounds(160, 165, 270,3);
-        midTextLine.setBackground(CustomColor.PINK_ACCENT);
+        midTextLine.setBackground(IGUIStyle.CustomColor.PINK_ACCENT);
 
         //MidPanel
-        RoundedButton roundedButton = new RoundedButton(ROUNDED_BORDER_RADIUS, CustomColor.BLACK_MAIN, CustomColor.BLACK_MAIN);
+        RoundedButton roundedButton = new RoundedButton(ROUNDED_BORDER_RADIUS, IGUIStyle.CustomColor.BLACK_MAIN, IGUIStyle.CustomColor.BLACK_MAIN);
         roundedButton.setBounds(140,250, 300,325);
         roundedButton.setLayout(new BorderLayout());
         roundedButton.setVisible(true);
         roundedButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                appInstance.ChangePage(App.AppPage.CUSTOMER_ITEM_LISTING_PAGE.getPageController());
+                controller.OnBuyButtonClicked();
             }
         });
 
         CustomJLabel buyNowBtn = new CustomJLabel("ShopBag", new Dimension(150,150), ImageType.ICON, false);
-        CustomJLabel buyNowLabel = new CustomJLabel(FontSize.HEADER2, "Buy Now");
+        CustomJLabel buyNowLabel = new CustomJLabel(IGUIStyle.FontSize.HEADER2, "Buy Now");
         buyNowLabel.setHorizontalAlignment(JLabel.CENTER);
-        buyNowLabel.setForeground(CustomColor.GREEN_ATTENTION);
+        buyNowLabel.setForeground(IGUIStyle.CustomColor.GREEN_ATTENTION);
         buyNowLabel.setBackground(Color.BLUE);
 
         //Bottom text
-        CustomJLabel tradeMarkTxt = new CustomJLabel(FontSize.HIDE, "<html>&emsp;&emsp;&ensp;JVendor 2022 ©<br/>Software created by Brenden</html>");
+        CustomJLabel tradeMarkTxt = new CustomJLabel(IGUIStyle.FontSize.HIDE, "<html>&emsp;&emsp;&ensp;JVendor 2022 ©<br/>Software created by Brenden</html>");
         tradeMarkTxt.setHorizontalAlignment(SwingConstants.CENTER);
         tradeMarkTxt.setVerticalAlignment(SwingConstants.CENTER);
         tradeMarkTxt.setBounds(150,690,300,100);
-        tradeMarkTxt.setForeground(CustomColor.BLACK_HIDE);
+        tradeMarkTxt.setForeground(IGUIStyle.CustomColor.BLACK_HIDE);
 
         //Corner admin button
         CustomJButton settingBtn = new CustomJButton("Settings");
-        settingBtn.setForeground(CustomColor.BLACK_HIDE);
+        settingBtn.setForeground(IGUIStyle.CustomColor.BLACK_HIDE);
         settingBtn.setBounds(0,700,100,100);
         settingBtn.setBorder(BorderFactory.createEmptyBorder());
         settingBtn.setContentAreaFilled(false);
         settingBtn.setBorderPainted(false);
         settingBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                ShowAdminCodePanel();
+                controller.ShowAdminPanel();
             }
         });
 
@@ -99,13 +97,10 @@ public class WelcomePage extends CustomJPanel implements IGUIStyle, IPageControl
         add(settingBtn);
         setVisible(true);
         window.add(this);
-
     }
 
-    private void ShowAdminCodePanel()
-    {
-        FlatLightLaf.setup();
-        messageContainer = new CustomJPanel();
+    public void ShowAdminOptionPane() {
+        JPanel messageContainer = new CustomJPanel();
         messageContainer.setLayout(new BoxLayout(messageContainer,BoxLayout.Y_AXIS));
         CustomJLabel message = new CustomJLabel(FontSize.HEADER2, "Enter Admin Code");
 
@@ -115,17 +110,17 @@ public class WelcomePage extends CustomJPanel implements IGUIStyle, IPageControl
         codeInput.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
-                CheckAdminCode(codeInput.getText());
+                controller.VerifyAdminCode(messageContainer, codeInput.getText());
             }
 
             @Override
             public void removeUpdate(DocumentEvent e) {
-                CheckAdminCode(codeInput.getText());
+                controller.VerifyAdminCode(messageContainer, codeInput.getText());
             }
 
             @Override
             public void changedUpdate(DocumentEvent e) {
-                CheckAdminCode(codeInput.getText());
+                controller.VerifyAdminCode(messageContainer, codeInput.getText());
             }
 
 
@@ -135,24 +130,9 @@ public class WelcomePage extends CustomJPanel implements IGUIStyle, IPageControl
         messageContainer.add(codeInput);
 
 
-        adminParentPanel = new JOptionPane();
-        adminParentPanel.showOptionDialog(window, messageContainer, "Admin Code Panel",
+
+        JOptionPane.showOptionDialog(window, messageContainer, "Admin Code Panel",
                 -1, JOptionPane.PLAIN_MESSAGE,null, new String[]{"OK"}, null);
 
-    }
-    private JPanel messageContainer;
-    private void CheckAdminCode(String codeInput)
-    {
-        if (codeInput.equals("12345"))
-        {
-          messageContainer.removeAll();
-
-          CustomJLabel successMsg = new CustomJLabel(FontSize.BODY, "Success. Entering admin dashboard");
-          successMsg.setForeground(CustomColor.GREEN_ATTENTION);
-          messageContainer.add(successMsg);
-          messageContainer.revalidate();
-          messageContainer.repaint();
-          appInstance.ChangePage(App.AppPage.ADMIN_PAGE.getPageController());
-        }
     }
 }

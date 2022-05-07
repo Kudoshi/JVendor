@@ -529,7 +529,9 @@ public class Database {
 
 
     public static void main(String[] args) {
-
+        String test = "142332";
+        Double.parseDouble(test);
+        System.out.println(test.matches("(\\d+)(\\.)([0-9])([0-9]+)"));
     }
 
 }
