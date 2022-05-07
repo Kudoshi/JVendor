@@ -68,13 +68,6 @@ public class AdminItemEditView extends JPanel implements IGUIStyle{
         CustomJPanel formContainer = new CustomJPanel(20, CustomColor.WHITE_NORMAL, CustomColor.WHITE_NORMAL);
         formContainer.setBounds(50,150, 500,500);
         formContainer.setLayout(null);
-        formContainer.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mousePressed(MouseEvent e) {
-                System.out.println(e.getX() + "," + e.getY());
-            }
-        });
-
         //Item Icon
         itemIcon = new CustomJLabel(itemEditing.getPictureName(), new Dimension(110,110)
                 ,ImageType.ITEM_IMAGE, true);
