@@ -37,7 +37,7 @@ public class AdminAddItemView extends JPanel implements IGUIStyle{
         brandBannerTitle.setHorizontalAlignment(SwingConstants.CENTER);
         brandBannerTitle.setForeground(CustomColor.WHITE_NORMAL);
 
-        CustomJButton backBtn = new CustomJButton("←");
+        CustomJButton backBtn = new CustomJButton("<");
         backBtn.setFont(new Font(FONT_TYPE, Font.PLAIN, 35));
         backBtn.setBounds(10,15,50,50);
         backBtn.DisableBorderStyling();
@@ -119,7 +119,9 @@ public class AdminAddItemView extends JPanel implements IGUIStyle{
 
         CustomJLabel warningItemStock = new CustomJLabel(FontSize.HIDE, "* Add stock in the item listing later");
         warningItemStock.setForeground(CustomColor.BLACK_HIDE);
-        warningItemStock.setBounds(290, 350, 125,30);
+        warningItemStock.setBounds(290, 350, 200,30);
+        warningItemStock.setOpaque(true);
+        warningItemStock.setBackground(CustomColor.WHITE_DARK_2);
 
         //>> Bottom Menu Bar
         CustomJPanel menuBar = new CustomJPanel();

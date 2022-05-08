@@ -59,7 +59,13 @@ public class AdminAddItemController implements IPageController
         try{
 
             float itemPriceFloat = Float.parseFloat(itemPrice);
+
             if (itemPrice.contains("d") || itemPrice.contains("f"))
+            {
+                throw new NumberFormatException();
+            }
+
+            if (Float.isInfinite(itemPriceFloat) || Float.isNaN(itemPriceFloat))
             {
                 throw new NumberFormatException();
             }
@@ -77,7 +83,7 @@ public class AdminAddItemController implements IPageController
             }
         }catch(NumberFormatException e){
             view.TriggerErrorDialogue("Invalid price", "Item price should be:\n" +
-                    "- Numerical\n- More than 0\n- 2 Decimal place");
+                    "- Numerical\n- More than 0\n- 2 Decimal place\n- Not absurdly large");
             return;
         }
 

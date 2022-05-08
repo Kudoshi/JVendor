@@ -33,7 +33,7 @@ public class AdminItemListingView extends JPanel implements IGUIStyle{
         brandBannerTitle.setHorizontalAlignment(SwingConstants.CENTER);
         brandBannerTitle.setForeground(CustomColor.WHITE_NORMAL);
 
-        CustomJButton backBtn = new CustomJButton("←");
+        CustomJButton backBtn = new CustomJButton("<");
         backBtn.setFont(new Font(FONT_TYPE, Font.PLAIN, 35));
         backBtn.setBounds(10,15,50,50);
         backBtn.DisableBorderStyling();

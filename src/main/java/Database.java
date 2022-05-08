@@ -131,7 +131,6 @@ public class Database {
      */
     public static ArrayList<String[]> TextFileGetAll(FileType fileType){
         ArrayList<String[]> dataList = new ArrayList<String[]>();
-
         File file = new File(fileType.getFileLocationURI());
         try {
             Scanner scanner = new Scanner(file);
@@ -336,6 +335,8 @@ public class Database {
                 break;
             }
         }
+
+        //Delete if is item picture
 
         if (indexToBeRemoved == -1)
         {

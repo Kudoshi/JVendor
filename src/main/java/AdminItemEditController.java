@@ -74,6 +74,11 @@ public class AdminItemEditController  implements IPageController
                 throw new NumberFormatException();
             }
 
+            if (Float.isInfinite(itemPriceFloat) || Float.isNaN(itemPriceFloat))
+            {
+                throw new NumberFormatException();
+            }
+
             String[] checkDecimalPlace = itemPrice.split("\\.");
             if (checkDecimalPlace.length == 2 && checkDecimalPlace[1].length()>2)
             {
@@ -170,6 +175,11 @@ public class AdminItemEditController  implements IPageController
         }
 
         boolean isInt = amount.matches("\\d+");
+        if (Float.isInfinite(Float.parseFloat(amount)) || Float.isNaN(Float.parseFloat(amount)))
+        {
+            isInt = false;
+        }
+
 
         if (!isInt)
         {

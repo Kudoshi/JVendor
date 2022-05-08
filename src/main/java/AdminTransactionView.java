@@ -35,7 +35,7 @@ public class AdminTransactionView extends JPanel implements IGUIStyle {
         brandBannerTitle.setHorizontalAlignment(SwingConstants.CENTER);
         brandBannerTitle.setForeground(CustomColor.WHITE_NORMAL);
 
-        CustomJButton backBtn = new CustomJButton("←");
+        CustomJButton backBtn = new CustomJButton("<");
         backBtn.setFont(new Font(FONT_TYPE, Font.PLAIN, 35));
         backBtn.setBounds(10,15,50,50);
         backBtn.DisableBorderStyling();
@@ -81,8 +81,6 @@ public class AdminTransactionView extends JPanel implements IGUIStyle {
         {
             for (String[] transactionRecord: transactionList)
             {
-                // TO DO: Null the name of the item i guess
-
                 //Date: HH-mm-MM-dd-yyyy
                 String[] dateTime = transactionRecord[2].split("-");
                 String[] itemValues = Database.TextFileGetByID(Database.FileType.ITEM, transactionRecord[1]);
