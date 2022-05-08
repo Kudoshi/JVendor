@@ -57,6 +57,8 @@ public class CustomerItemListingView extends JPanel implements IGUIStyle {
         //Item List Container
 
         ArrayList<String[]> itemList = controller.GetItemList();
+        // Get total item that has stock available
+
         int containerHeight = 638; //660 in accordance with JScrollPane height
         if (itemList != null)
         {
@@ -74,10 +76,6 @@ public class CustomerItemListingView extends JPanel implements IGUIStyle {
 
         if (itemList != null && itemList.size() > 0) {
             for (String[] item : itemList) {
-                if (Integer.parseInt(item[2]) == 0)
-                {
-                    continue;
-                }
                 CustomJButton itemContainer = new CustomJButton();
                 itemContainer.setPreferredSize(new Dimension(150,220));
                 itemContainer.setBackground(CustomColor.WHITE_NORMAL);

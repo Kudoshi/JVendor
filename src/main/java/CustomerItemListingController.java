@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -31,8 +32,16 @@ public class CustomerItemListingController implements IPageController{
 
     public ArrayList<String[]> GetItemList()
     {
-        
-        return Database.TextFileGetAll(Database.FileType.ITEM);
+        ArrayList<String[]> itemList = Database.TextFileGetAll(Database.FileType.ITEM);
+
+        for (int i = itemList.size()-1; i > -1; i--)
+        {
+            int itemStock = Integer.parseInt(itemList.get(i)[2]);
+            if (itemStock == 0) {
+                itemList.remove(i);
+            }
+        }
+        return itemList;
     }
 
     public void OnItemClick(String[] itemValues) {
