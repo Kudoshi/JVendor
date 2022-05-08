@@ -41,7 +41,6 @@ public class CustomerItemListingController implements IPageController{
     }
 
     public void PopupPayPanel(CustomJPanel paymentParent, Item item) {
-        int userDecision = 1;
 
         // Simulate waiting for payment on the POS
         int randomNum = ThreadLocalRandom.current().nextInt(2000, 7000);
@@ -62,7 +61,7 @@ public class CustomerItemListingController implements IPageController{
         timer.setRepeats(false);
         timer.start();
 
-        userDecision = JOptionPane.showOptionDialog(null, paymentParent, "Payment", JOptionPane.DEFAULT_OPTION,
+        JOptionPane.showOptionDialog(null, paymentParent, "Payment", JOptionPane.DEFAULT_OPTION,
                 JOptionPane.PLAIN_MESSAGE, null, new String[] {"Cancel"}, null);
 
     }

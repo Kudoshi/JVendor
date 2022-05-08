@@ -1,11 +1,6 @@
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.net.MalformedURLException;
-import java.net.URI;
 import java.net.URL;
 
 public class GifPanel extends JLabel {
@@ -13,8 +8,6 @@ public class GifPanel extends JLabel {
     Image image;
 
     public GifPanel(String gifName) {
-        String filePath = String.valueOf(Database.RetrieveGifURI(gifName));
-
         URL url = null;
         try {
             url = Database.RetrieveGifURI(gifName).toURL();

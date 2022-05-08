@@ -1,7 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
 import java.util.HashMap;
-import java.util.Scanner;
 
 public class App implements IGUIStyle{
 
@@ -11,11 +10,6 @@ public class App implements IGUIStyle{
     private HashMap<String, Object> globalVar;
 
     public static void main(String[] args) {
-        //Check dependencies text file first
-
-        //Clear cart
-
-        //Open main window
         App appInstance = new App();
     }
 
@@ -54,10 +48,6 @@ public class App implements IGUIStyle{
         window.setLocationRelativeTo(null);
         window.setResizable(false);
 
-
-//        WelcomePage welcomePage = new WelcomePage();
-//        welcomePage.InitController(this, window);
-//        currentPage = welcomePage;
         ChangePage(AppPage.MAIN_PAGE.getPageController());
 
         window.setVisible(true);

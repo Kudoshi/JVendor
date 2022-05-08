@@ -19,8 +19,6 @@ public class AdminPageController implements IPageController
         view = new AdminPageView(controller, window);
     }
 
-    //Events
-
     public void OnBackToHomepage()
     {
         this.appInstance.ChangePage(App.AppPage.MAIN_PAGE.getPageController());

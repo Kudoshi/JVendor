@@ -1,7 +1,6 @@
 import com.formdev.flatlaf.FlatLightLaf;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -147,6 +146,7 @@ public class AdminPageView extends JPanel implements IGUIStyle {
         shutdownTitle.setLayout(null);
         shutdownTitle.setBounds(20,130,140,50);
         shutdownTitle.setForeground(CustomColor.BLUE_BRAND);
+
         // Add components
 
         brandBannerParent.add(brandBannerTitle, BorderLayout.CENTER);

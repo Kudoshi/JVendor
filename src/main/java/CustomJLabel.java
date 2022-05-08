@@ -1,17 +1,6 @@
-import net.coobird.thumbnailator.Thumbnails;
-
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.net.URI;
 
-/**
- * Changes the default font and color
- * Allows for resizing of icons
- */
 public class CustomJLabel extends JLabel {
 
     private String defaultFont ="Calibri";

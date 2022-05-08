@@ -11,7 +11,4 @@ public class Transaction {
         this.transactionDate = transactionDate;
         this.transactionPrice = transactionPrice;
     }
-
-
-
 }

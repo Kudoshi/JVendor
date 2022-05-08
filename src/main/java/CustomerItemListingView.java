@@ -1,15 +1,9 @@
 import com.formdev.flatlaf.FlatLightLaf;
-
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class CustomerItemListingView extends JPanel implements IGUIStyle {
@@ -129,12 +123,8 @@ public class CustomerItemListingView extends JPanel implements IGUIStyle {
         itemScrollPane.setBounds(0,120, 585,641);
 
         //Add
-
         brandBannerParent.add(brandBannerTitle);
-
-
         add(itemScrollPane);
-
         add(backBtn);
         add(brandBannerParent);
         add(itemListingBanner);
@@ -162,10 +152,6 @@ public class CustomerItemListingView extends JPanel implements IGUIStyle {
 
         CustomJLabel paymentSubTitle = new CustomJLabel(FontSize.HEADER2, "<html><p style='text-align: center; width: 400'>" +
                 String.valueOf(item.getItemName())+"</p></html>", Font.BOLD);
-//        String deleteWarningMsg = "<html><p style='text-align: center; " +
-//                "color: red;'> " +
-//                "WARNING: Item will be permanently deleted<br><br>" +
-//                "Are you sure you want to delete this item?</p></html>";
         paymentSubTitle.setBounds(50, 230, 400, 60);
         paymentSubTitle.setOpaque(true);
 

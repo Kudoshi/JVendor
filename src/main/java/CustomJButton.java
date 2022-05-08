@@ -1,16 +1,6 @@
-import net.coobird.thumbnailator.Thumbnails;
-
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.net.URI;
 
-/**
- * Allows resizing of icons in JButton
- */
 public class CustomJButton extends JButton {
 
     private String defaultFont ="Calibri";

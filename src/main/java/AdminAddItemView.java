@@ -1,10 +1,8 @@
 import com.formdev.flatlaf.FlatLightLaf;
 
 import javax.swing.*;
-import javax.swing.filechooser.FileSystemView;
 import java.awt.*;
 import java.awt.event.*;
-import java.io.File;
 
 public class AdminAddItemView extends JPanel implements IGUIStyle{
     private JFrame window;

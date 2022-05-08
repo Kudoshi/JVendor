@@ -1,8 +1,3 @@
-
-
-// Text File DB format:
-// itemCode;itemName;stock;picturePath;category;price
-
 public class Item {
     private String itemCode;
     private String itemName;
