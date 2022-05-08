@@ -122,6 +122,8 @@ public class AdminAddItemController implements IPageController
             {
                 imageLocation = selectedFile.getAbsolutePath();
                 view.SetUIImageFileName(fileName);
+                view.SetUIItemIcon(ResizeImageUtility.ResizeImageUtility(imageLocation, new Dimension(110,110), ImageType.OUTSIDE_IMAGE));
+
             }
             else
             {

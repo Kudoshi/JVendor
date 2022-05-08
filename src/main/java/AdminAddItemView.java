@@ -11,6 +11,7 @@ public class AdminAddItemView extends JPanel implements IGUIStyle{
     private AdminAddItemController controller;
 
     private CustomJLabel imageFileName;
+    private CustomJLabel itemIcon;
 
 
     public AdminAddItemView(AdminAddItemController controller, JFrame window) {
@@ -64,12 +65,18 @@ public class AdminAddItemView extends JPanel implements IGUIStyle{
         formContainer.setBounds(50,150, 500,500);
         formContainer.setLayout(null);
 
+        //Item Icon
+        itemIcon = new CustomJLabel("");
+        itemIcon.setBounds(190,25, 110,110);
+        itemIcon.setBackground(CustomColor.WHITE_DARK_2);
+        itemIcon.setOpaque(true);
+
         //Item Pic
         CustomJLabel formPic = new CustomJLabel(FontSize.BODY, "Item Picture:", Font.BOLD);
-        formPic.setBounds(40, 40, 150, 30);
+        formPic.setBounds(40, 170, 150, 30);
 
         CustomJButton selectImgBtn = new CustomJButton(FontSize.BODY, "Select Image", Font.PLAIN);
-        selectImgBtn.setBounds(150, 40, 125, 30);
+        selectImgBtn.setBounds(150, 170, 125, 30);
         selectImgBtn.setBackground(CustomColor.BLUE_BRAND);
         selectImgBtn.setForeground(CustomColor.WHITE_NORMAL);
         selectImgBtn.addActionListener(new ActionListener() {
@@ -79,40 +86,40 @@ public class AdminAddItemView extends JPanel implements IGUIStyle{
         });
 
         CustomJLabel selectImgWarning = new CustomJLabel(FontSize.HIDE, "Only PNG image file allowed", Font.PLAIN);
-        selectImgWarning.setBounds(290, 40, 200, 30);
+        selectImgWarning.setBounds(290, 170, 200, 30);
 
         imageFileName = new CustomJLabel(FontSize.HIDE, "", Font.PLAIN);
-        imageFileName.setBounds(155, 75, 300, 30);
+        imageFileName.setBounds(155, 205, 300, 30);
 
         //Item Name
         CustomJLabel formItemName = new CustomJLabel(FontSize.BODY, "Item Name:", Font.BOLD);
-        formItemName.setBounds(40, 110, 150, 30);
+        formItemName.setBounds(40, 240, 150, 30);
 
         JTextField fieldItemName = new JTextField();
-        fieldItemName.setBounds(150, 110, 250, 30);
+        fieldItemName.setBounds(150, 240, 250, 30);
 
         //Item Price
         CustomJLabel formItemPrice = new CustomJLabel(FontSize.BODY, "Item Price:", Font.BOLD);
-        formItemPrice.setBounds(40, 165, 150, 30);
+        formItemPrice.setBounds(40, 295, 150, 30);
 
         JTextField fieldItemPrice = new JTextField();
-        fieldItemPrice.setBounds(150, 165, 125, 30);
+        fieldItemPrice.setBounds(150, 295, 125, 30);
 
         CustomJLabel warningItemPrice = new CustomJLabel(FontSize.HIDE, "E.g. 25.50");
-        warningItemPrice.setBounds(290, 165, 200,30);
+        warningItemPrice.setBounds(290, 295, 200,30);
 
         //Item Stock
         CustomJLabel formItemStock = new CustomJLabel(FontSize.BODY, "Item Stock:", Font.BOLD);
-        formItemStock.setBounds(40, 220, 150, 30);
+        formItemStock.setBounds(40, 350, 150, 30);
 
         JTextField fieldItemStock = new JTextField("0");
-        fieldItemStock.setBounds(150, 220, 125, 30);
+        fieldItemStock.setBounds(150, 350, 125, 30);
         fieldItemStock.setHorizontalAlignment(SwingConstants.CENTER);
         fieldItemStock.setEditable(false);
 
         CustomJLabel warningItemStock = new CustomJLabel(FontSize.HIDE, "* Add stock in the item listing later");
         warningItemStock.setForeground(CustomColor.BLACK_HIDE);
-        warningItemStock.setBounds(290, 220, 200,30);
+        warningItemStock.setBounds(290, 350, 125,30);
 
         //>> Bottom Menu Bar
         CustomJPanel menuBar = new CustomJPanel();
@@ -134,6 +141,7 @@ public class AdminAddItemView extends JPanel implements IGUIStyle{
         //Add Item
         brandBannerParent.add(brandBannerTitle, BorderLayout.CENTER);
         menuBar.add(submitBtn);
+        formContainer.add(itemIcon);
         formContainer.add(formPic);
         formContainer.add(selectImgBtn);
         formContainer.add(selectImgWarning);
@@ -167,4 +175,7 @@ public class AdminAddItemView extends JPanel implements IGUIStyle{
         JOptionPane.showMessageDialog(null, errorMessage, title, JOptionPane.ERROR_MESSAGE);
     }
 
+    public void SetUIItemIcon(Icon icon) {
+        itemIcon.setIcon(icon);
+    }
 }
