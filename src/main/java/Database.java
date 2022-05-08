@@ -2,7 +2,6 @@ import java.io.*;
 import java.lang.reflect.Field;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -18,29 +17,23 @@ public class Database {
 
     /**
      * An enum that stores the type of database file and the file location of the database text file
-     *
      */
     enum FileType
     {
-        ITEM("Database/item.txt", Item.class),
-        TRANSACTION("Database/transaction.txt", Transaction.class);
-        private URL fileLocation;
+        ITEM("Resource/Database/item.txt", Item.class),
+        TRANSACTION("Resource/Database/transaction.txt", Transaction.class);
+        private URI fileLocationURI;
         private Class<?> classType;
 
         FileType(String fileLocation, Class<?> classType) {
-            URL url = Database.class.getResource(fileLocation);
-            this.fileLocation = url;
+            URI uri = new File(fileLocation).toURI();
+            this.fileLocationURI = uri;
             this.classType = classType;
         }
 
         public URI getFileLocationURI()
         {
-            try {
-                return this.fileLocation.toURI();
-            } catch (URISyntaxException e) {
-                e.printStackTrace();
-            }
-            return null;
+            return this.fileLocationURI;
         }
 
         public Class<?> getClassType() {
@@ -49,13 +42,11 @@ public class Database {
     }
 
 
-    /** Creates a record with the following item details
-     *  It checks for duplicated item code
-     *  NOTE: The first index array of data will be replaced with a generated id code. Leave the first index blank
-     *  NOTE: Item's 3rd index array of data should be the full path to source image.
-     *  It will be replaced with the proper file name in resource folder later when saved
+    /** Creates/appends a record with the given object details to the database file
+     *  NOTE: The first index array of data will be automatically replaced with a generated id code
+     *  NOTE: Item's 3rd index array of data should be the full path to source image
      * @param fileType FileType of the data you want to create
-     * @param createData Array of strings or array of objects that contains the information of the data filled in
+     * @param createData Array of strings or array of objects that contains the records of the data
      * @return boolean Returns true or false indicating the success of creating a new data record in the database
      */
     public static <T> boolean TextFileCreate(FileType fileType, Object[] createData){
@@ -75,15 +66,7 @@ public class Database {
 
             String newFileName = createData[0]+"_"+createData[1].toString().replaceAll(" ","") + ".png";
             createData[3] = newFileName;
-            String newFilePath = Database.class.getResource("Item/").toString() + newFileName;
-            Path targetPath = null;
-
-
-            try {
-                targetPath = Paths.get(new URI(newFilePath));
-            } catch (URISyntaxException e) {
-                e.printStackTrace();
-            }
+            Path targetPath = Paths.get("Resource/Item/"+newFileName);
 
             try
             {
@@ -119,7 +102,7 @@ public class Database {
     }
 
     /**
-     * Returns an array list of string data
+     * Returns the data of all the records in the database of the specified file type
      *
      * @param fileType FileType of the data you want to get
      * @return ArrayList<String[]> Contains an array of string array. Returns null if no item is found
@@ -151,10 +134,9 @@ public class Database {
     }
     /**
      * Get a record of data from the text file that corresponds to the idCode (first index of the data record) given
-     * TL;DR Search by idCode
      * @param fileType FileType of the data you want to get
-     * @param idCode The first id of the record.
-     * @return String[] The data record found with the first initial id code or null if no record is found with the id
+     * @param idCode The id of the record you want to get
+     * @return String[] Returns an array of string data. Returns null if no record is found
      */
     public static String[] TextFileGetByID(FileType fileType, String idCode){
 
@@ -189,9 +171,9 @@ public class Database {
      * Updates the information of the specified data record.
      * The data record's first index (id code) cannot be changed
      *
-     * @param fileType The file type wishes to update the item
+     * @param fileType FileType of the data you want to update
      * @param updateData The record with the new details along with the appropriate id code (The first index)
-     * @return boolean Indicating the success of updating the item with new data
+     * @return boolean Returns true if the update is successful. Returns false if the update is not successful
      */
     public static boolean TextFileUpdateData(FileType fileType, Object[] updateData)
     {
@@ -226,15 +208,7 @@ public class Database {
                 Path originalPath = Paths.get((String)updateData[3]);
 
                 updateData[3] = oriData[3];
-                String originalSrcPath = Database.class.getResource("Item/").toString() + oriData[3];
-                Path targetPath = null;
-
-
-                try {
-                    targetPath = Paths.get(new URI(originalSrcPath));
-                } catch (URISyntaxException e) {
-                    e.printStackTrace();
-                }
+                Path targetPath = Paths.get("Resource/Item/"+oriData[3]);
 
                 try
                 {
@@ -302,9 +276,9 @@ public class Database {
     /**
      * Delete the data record from the database based on the dataCode given
      *
-     * @param fileType The file type wishes to update the item
-     * @param dataCode The code of the data to be deleted. The first index of the data record.
-     * @return boolean Indicating the success of deleting the item
+     * @param fileType File type of the data to be deleted
+     * @param dataCode The code of the data to be deleted. Normally is the first index of the data record.
+     * @return True if the data is deleted successfully. False if the deletion failed.
      */
     public static boolean TextFileDelete(FileType fileType, String dataCode)
     {
@@ -365,6 +339,11 @@ public class Database {
 
     // Utility
 
+    /**
+     * Generate a 5 digit ascending order ID based on the current data records in the file type
+     * @param fileType The file type to generate the ID for
+     * @return String of the ID Code
+     */
     private static String GenerateID(FileType fileType)
     {
         ArrayList<String[]> dataList = TextFileGetAll(fileType);
@@ -388,7 +367,7 @@ public class Database {
      *
      * @param fileType The file type of the data
      * @param dataRecord An object array consisting of the data in its proper data type for the appropriate fileType
-     * @return The boolean on whether the incoming data is in its appropriate data type with the file type's class variables
+     * @return True if the data is valid. False if the data is not valid.
      */
     private static boolean ValidateIncomingData(FileType fileType, Object[] dataRecord)
     {
@@ -444,16 +423,15 @@ public class Database {
     }
 
     /**
-     * Retrieves URI path of the image icon.
-     * Image Icon has name that starts with ICON_
-     * @param iconName Name of the icon without ICON_
+     * Retrieves URI path of the system icon.
+     * @param iconName Name of the icon the extension
      * @return URI path of the icon. Null if no uri/file is found
      */
     public static URI RetrieveIconPathURI(String iconName)
     {
         URI pathURI = null;
         try {
-            pathURI = Database.class.getResource("Icon/"+ iconName+".png").toURI();
+            pathURI = Database.class.getResource("Icon/" + iconName+".png").toURI();
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }
@@ -469,23 +447,16 @@ public class Database {
     }
 
     /**
-     * Retrieves URI path of the image icon.
-     * Image Icon has name that starts with ICON_
-     * @param itemFilename Name of the icon without ICON_
+     * Retrieves URI path of the user submitted item icon.
+     *
+     * @param itemFilename Name of the icon without the .png extension. E.g. 00001_ItemFileName
      * @return URI path of the icon. Null if no uri/file is found
      */
     public static URI RetrieveItemImgURI(String itemFilename)
     {
         //Item name are in the form of 00025_ItemName
 
-
-        URI pathURI = null;
-        try {
-
-            pathURI = Database.class.getResource("Item/"+ itemFilename).toURI();
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-        }
+        URI pathURI = Paths.get("Resource/Item/"+itemFilename).toUri();
 
         if (pathURI != null)
         {
@@ -496,9 +467,9 @@ public class Database {
             return null;
         }
     }
-/**
-     * Retrieves URI path of the GIF
-     * @param itemFilename Name of the icon without .GIF
+    /**
+     * Retrieves URI path of the system GIF
+     * @param itemFilename Name of the icon without the extension
      * @return URI path of the icon. Null if no uri/file is found
      */
     public static URI RetrieveGifURI(String itemFilename)
@@ -509,7 +480,7 @@ public class Database {
         URI pathURI = null;
         try {
 
-            pathURI = Database.class.getResource("Gif/"+ itemFilename+".gif").toURI();
+            pathURI = Database.class.getResource("Gif/" + itemFilename+".gif").toURI();
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }
@@ -524,6 +495,30 @@ public class Database {
         }
     }
 
+    /**
+     * Creates the directory files and database text files
+     * Used especially when starting a new Jar file with no items
+     */
+    public static void CheckFileDependencies() {
+        //Check whether it exist otherwise create it
+        File resourceFolder = new File("Resource");
+        File databaseFolder = new File("Resource/Database");
+        File ItemPicFolder = new File("Resource/Item");
+        File itemFile = new File("Resource/Database/item.txt");
+        File transactionFile = new File("Resource/Database/transaction.txt");
 
+        try{
+            if (!resourceFolder.exists()) {
+                Files.createDirectory(resourceFolder.toPath());
+                Files.createDirectory(databaseFolder.toPath());
+                Files.createDirectory(ItemPicFolder.toPath());
+                itemFile.createNewFile();
+                transactionFile.createNewFile();
+            }
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
 

@@ -1,5 +1,0 @@
-00001;Bfr;22;00001_Bfr.png;123.0
-00002;Apple12;3;00002_Apple.png;1234.0
-00003;Teh Tarik;0;00003_TehTarik.png;4.45
-00004;Buttons sd;0;00004_Buttonssd.png;1234
-00005;asd41;0;00005_asd41.png;2

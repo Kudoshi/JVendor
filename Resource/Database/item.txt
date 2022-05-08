@@ -1,0 +1,17 @@
+00001;Coca Cola;12;00001_CocaCola.png;2.0
+00002;Mondstadt Hash Brown;5;00002_MondstadtHashBrown.png;8.5
+00003;Health Potion;15;00003_HealthPotion.png;24.99
+00004;Maggee Cup Ayam HOT CUP;25;00004_MaggeeCupAyam.png;3.6
+00005;Mars Chocolate Bar;5;00005_MarsChocolateBar.png;4.8
+00006;Dutch Lady Fresh Milk;14;00006_DutchLadyFreshMilk.png;4.5
+00007;Milo Kotak;3;00007_MiloKotak.png;5.5
+00008;Nasi Lemak Bungkus On The Go;4;00008_NasiLemakBungkusOnTheGo.png;5.0
+00009;Nescafe Original;8;00009_NescafeOriginal.png;4.4
+00010;Toy Car Octane;24;00010_ToyCarOctane.png;24.69
+00011;Family Mart Onigiri;10;00011_FamilyMartOnigiri.png;6.5
+00012;Apple Premium Notebook;1;00012_Notebook.png;420.69
+00013;Green Dumpling;3;00013_GreenDumpling.png;9.0
+00015;Bundle of Wheat;3;00015_BundleofWheat.png;12.0
+00016;Weird Looking Stick with Eyes Child Toy;4;00016_WeirdLookingStickwithEyesChildToy.png;4.0
+00017;WacRonald Chocobot Icecream;0;00017_WacRonaldChocobotIcecream.png;1.50
+00018;Pepsi;0;00018_Pepsi.png;3.45

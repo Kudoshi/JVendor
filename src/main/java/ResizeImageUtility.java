@@ -4,10 +4,8 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.nio.file.Paths;
 
 public class ResizeImageUtility {
@@ -27,10 +25,9 @@ public class ResizeImageUtility {
         {
             filePath = Paths.get(imageName).toUri();
         }
-
         // Resize image
         try {
-            BufferedImage oriImg = ImageIO.read(new File(filePath));
+            BufferedImage oriImg = ImageIO.read(filePath.toURL());
             resizedIcon = Thumbnails.of(oriImg).size(targetSize.width,targetSize.height).keepAspectRatio(false).asBufferedImage();
         } catch (IOException e) {
             e.printStackTrace();

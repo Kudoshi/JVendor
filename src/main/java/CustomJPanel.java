@@ -9,7 +9,7 @@ public class CustomJPanel extends JPanel {
     private Color borderColor = Color.BLACK;
 
     /**
-     * For JPanel with rounded borders
+     * Create JPanel with rounded borders
      * @param radius Curviness radius of the corners
      * @param fillColor Inside color of the JPanel
      * @param borderColor Border color of the JPanel

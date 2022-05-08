@@ -2,6 +2,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.HashMap;
 
+/**
+ * The main class of the application.
+ */
 public class App implements IGUIStyle{
 
     public JFrame window;
@@ -10,6 +13,8 @@ public class App implements IGUIStyle{
     private HashMap<String, Object> globalVar;
 
     public static void main(String[] args) {
+        Database.CheckFileDependencies();
+
         App appInstance = new App();
     }
 

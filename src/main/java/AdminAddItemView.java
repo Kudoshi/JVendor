@@ -118,8 +118,6 @@ public class AdminAddItemView extends JPanel implements IGUIStyle{
         CustomJLabel warningItemStock = new CustomJLabel(FontSize.HIDE, "* Add stock in the item listing later");
         warningItemStock.setForeground(CustomColor.BLACK_HIDE);
         warningItemStock.setBounds(290, 350, 200,30);
-        warningItemStock.setOpaque(true);
-        warningItemStock.setBackground(CustomColor.WHITE_DARK_2);
 
         //>> Bottom Menu Bar
         CustomJPanel menuBar = new CustomJPanel();
