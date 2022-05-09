@@ -85,7 +85,7 @@ public class CustomerItemListingController implements IPageController{
             view.TriggerErrorDialogue("Error", "Error dispensing item");
         }
 
-        String pattern = "HH-mm-MM-dd-yyyy";
+        String pattern = "HH-mm-dd-MM-yyyy";
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
         String date = simpleDateFormat.format(new Date());
         Database.TextFileCreate(Database.FileType.TRANSACTION, new String[] { "", item.getItemCode(), date, String.valueOf(item.getPrice())});
