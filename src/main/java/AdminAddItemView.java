@@ -106,19 +106,6 @@ public class AdminAddItemView extends JPanel implements IGUIStyle{
         CustomJLabel warningItemPrice = new CustomJLabel(FontSize.HIDE, "E.g. 25.50");
         warningItemPrice.setBounds(290, 295, 200,30);
 
-        //Item Stock
-        CustomJLabel formItemStock = new CustomJLabel(FontSize.BODY, "Item Stock:", Font.BOLD);
-        formItemStock.setBounds(40, 350, 150, 30);
-
-        JTextField fieldItemStock = new JTextField("0");
-        fieldItemStock.setBounds(150, 350, 125, 30);
-        fieldItemStock.setHorizontalAlignment(SwingConstants.CENTER);
-        fieldItemStock.setEditable(false);
-
-        CustomJLabel warningItemStock = new CustomJLabel(FontSize.HIDE, "* Add stock in the item listing later");
-        warningItemStock.setForeground(CustomColor.BLACK_HIDE);
-        warningItemStock.setBounds(290, 350, 200,30);
-
         //>> Bottom Menu Bar
         CustomJPanel menuBar = new CustomJPanel();
         menuBar.setBounds(0, 690, WINDOW_MAX_WIDTH,110);
@@ -149,9 +136,6 @@ public class AdminAddItemView extends JPanel implements IGUIStyle{
         formContainer.add(formItemPrice);
         formContainer.add(fieldItemPrice);
         formContainer.add(warningItemPrice);
-        formContainer.add(formItemStock);
-        formContainer.add(fieldItemStock);
-        formContainer.add(warningItemStock);
 
 
         add(backBtn);

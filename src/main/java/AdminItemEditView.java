@@ -194,7 +194,6 @@ public class AdminItemEditView extends JPanel implements IGUIStyle{
 
     public void TriggerErrorDialogue(String title, String errorMessage)
     {
-
         JOptionPane.showMessageDialog(null, errorMessage, title, JOptionPane.ERROR_MESSAGE);
     }
 

@@ -4,7 +4,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -77,7 +76,8 @@ public class CustomerItemListingController implements IPageController{
 
     private void PaymentSuccess(Item item) {
         //Update data
-        String[] itemValues = new String[] { item.getItemCode(), item.getItemName(), String.valueOf(item.getStock()-1), item.getPictureName(), String.valueOf(item.getPrice()) };
+        String[] itemValues = new String[] { item.getItemCode(), item.getItemName(), String.valueOf(item.getStock()-1),
+                item.getPictureName(), String.valueOf(item.getPrice()) };
         boolean isUpdated = Database.TextFileUpdateData(Database.FileType.ITEM, itemValues);
 
         if (!isUpdated)

@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- * A database class that handles all text file CRUD operations.
+ * A database class that handles all text file CRUD operations and file resources.
  */
 
 public class Database {
@@ -234,11 +234,14 @@ public class Database {
                     isUpdated = false;
                     break;
                 }
+
+                //Convert object array to string array
                 ArrayList<String> stringList = new ArrayList<String>();
                 for (int j = 0; j < updateData.length; j++)
                 {
                     stringList.add(String.valueOf(updateData[j]));
                 }
+
                 String[] stringArray = stringList.toArray(new String[0]);
                 dataList.set(i, stringArray);
                 isUpdated = true;
